@@ -38,3 +38,7 @@
   .hero-section{
     height: 75dvh;
   }
+  .hover-card:hover{
+    scale: 1.05;
+    transition: 0.5s;
+  }

@@ -1,0 +1,25 @@
+body {
+    background-color: #fff9c4; /* amarelo claro */
+  }
+  .header {
+    background-color: #a5d6a7; /* verde claro */
+  }
+  .form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  .form-label {
+    font-weight: 500;
+    color: #2e7d32;
+  }
+  .btn-custom {
+    background-color: #66bb6a;
+    color: white;
+  }
+  .btn-custom:hover {
+    background-color: #4caf50;
+  }
