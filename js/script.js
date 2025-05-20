@@ -1,4 +1,4 @@
-function scrollToCadastro() {
+function scrollToBottom() {
     document.getElementById('cadastro').scrollIntoView({ behavior: 'smooth' });
   }
 

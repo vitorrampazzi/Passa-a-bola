@@ -1,4 +1,4 @@
-# ⚽ PASSAABOLA - Challenge de Desenvolvimento Web e Mobile
+# ⚽ PASSA-A-BOLA - Challenge de Desenvolvimento Web e Mobile
 
 Este projeto foi desenvolvido como parte de um **challenge acadêmico** da FIAP, com foco em promover o futebol feminino por meio da tecnologia. A iniciativa busca dar visibilidade às jogadoras, conectar atletas e olheiros, além de incentivar a prática esportiva com um ambiente digital interativo e acessível.
 
@@ -51,4 +51,3 @@ Projeto desenvolvido por alunos do curso de Engenharia de Software da **FIAP**.
 Agradecemos à FIAP pela oportunidade de criar soluções reais para causas importantes como o incentivo ao futebol feminino.
 
 ---
-
