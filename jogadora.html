@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkeFut - Perfil da Jogadora</title>
+    <style>
+        /*
+        ******************************************************************
+        CSS PURO - ESTILOS GLOBAIS E DA PÁGINA DE PERFIL
+        ******************************************************************
+        */
+
+        /* Cores PassaABola - Insira aqui os códigos quando os tivermos! */
+        :root {
+            --primary-color: #007bff; /* Exemplo: Azul vibrante */
+            --secondary-color: #6c757d; /* Exemplo: Cinza neutro */
+            --accent-color: #28a745; /* Exemplo: Verde de destaque */
+            --background-light: #f8f9fa; /* Exemplo: Fundo claro */
+            --text-dark: #343a40; /* Exemplo: Texto escuro */
+            --star-color: #ffc107; /* Amarelo para as estrelas */
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            flex: 1; /* Faz o main ocupar o espaço restante */
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 2fr; /* Layout de 2 colunas para telas maiores */
+            }
+        }
+
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border-right: 1px solid #eee; /* Separador visual */
+            margin-right: -1px; /* Ajuste para grids */
+        }
+        @media (max-width: 767px) {
+            .profile-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 2rem;
+            }
+        }
+
+
+        .profile-content {
+            padding: 1.5rem;
+        }
+
+        /* Card de Informações */
+        .info-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .player-name {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .player-position-age {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background-color: var(--background-light);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .stat-item .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        /* Seção de Vídeos */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Sistema de Recomendação por Estrelas */
+        .star-rating {
+            font-size: 2rem;
+            color: var(--star-color);
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .star-rating .star {
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+            cursor: default; /* Por enquanto, não é clicável */
+        }
+
+        .star-rating .star.selected {
+            color: var(--star-color);
+        }
+        .star-rating .star.empty {
+            color: #ccc; /* Estrelas vazias */
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto; /* Garante que o rodapé fique no final da página */
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsividade para seções de vídeo em dispositivos menores */
+        @media (max-width: 767px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LinkeFut - Perfil da Jogadora</h1>
+    </header>
+
+    <main>
+        <aside class="profile-sidebar">
+            <img src="https://via.placeholder.com/150/FF69B4/FFFFFF?text=Foto" alt="Foto da Jogadora" class="profile-picture">
+            <h2 class="player-name">Ana Carolina Silva</h2>
+            <p class="player-position-age">Meio-campo | 21 anos | São Paulo, SP</p>
+
+            <div class="info-card" style="width: 100%;">
+                <h2>Avaliação da Comunidade</h2>
+                <div id="playerRating" class="star-rating">
+                    <!-- Estrelas serão renderizadas aqui pelo JavaScript -->
+                </div>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--secondary-color);">Baseado em 12 avaliações</p>
+            </div>
+
+            <div class="info-card" style="width: 100%;">
+                <h2>Contato</h2>
+                <p><strong>Email:</strong> ana.carolina@linkefut.com</p>
+                <p><strong>Telefone:</strong> (11) 98765-4321</p>
+                <p><strong>Clube Atual:</strong> Futebol Clube Feminino</p>
+            </div>
+        </aside>
+
+        <section class="profile-content">
+            <div class="info-card">
+                <h2>Sobre Mim</h2>
+                <p>Meio-campo criativa e com excelente visão de jogo, especialista em passes decisivos e organização ofensiva. Dedicada, com boa capacidade física e liderança em campo. Meu sonho é representar o Brasil em competições internacionais e inspirar novas gerações.</p>
+            </div>
+
+            <div class="info-card">
+                <h2>Estatísticas da Carreira</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="value">85</span>
+                        <span class="label">Jogos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="value">23</span>
+                        <span class="label">Gols</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="value">30</span>
+                        <span class="label">Assistências</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="value">2</span>
+                        <span class="label">Títulos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2>Vídeos de Destaque</h2>
+                <p>Assista aos meus melhores momentos em campo:</p>
+                <div class="video-container">
+                    <!-- Exemplo de vídeo do YouTube (RF02) -->
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p>Link para mais vídeos (Google Drive): <a href="https://drive.google.com/drive/folders/umexemplo"  style="color: var(--primary-color);">Meus Melhores Lances 2023</a></p>
+            </div>
+
+            <div class="info-card">
+                <h2>Histórico Esportivo</h2>
+                <ul>
+                    <li><strong>2022-Atual:</strong> Futebol Clube Feminino - Meio-campo titular</li>
+                    <li><strong>2020-2021:</strong> Grêmio de Futebol Feminino - Base (Sub-20)</li>
+                    <li><strong>2018-2019:</strong> Escolinha de Futebol "Talentos do Futuro"</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LinkeFut. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        /*
+        ******************************************************************
+        JAVASCRIPT PURO - LÓGICA DA PÁGINA DE PERFIL E AVALIAÇÃO POR ESTRELAS
+        ******************************************************************
+        */
+
+        // Função para renderizar as estrelas de avaliação
+        function renderStars(containerId, rating) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = ''; // Limpa o conteúdo existente
+
+            const maxStars = 5;
+            for (let i = 1; i <= maxStars; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                // Usa um caractere Unicode para a estrela
+                star.innerHTML = '&#9733;'; // Estrela preenchida
+
+                if (i <= rating) {
+                    star.classList.add('selected'); // Estrela preenchida (cor amarela)
+                } else {
+                    star.classList.add('empty'); // Estrela vazia (cor cinza)
+                }
+                container.appendChild(star);
+            }
+        }
+
+        // Simula uma avaliação vinda do "backend" ou de um banco de dados
+        const playerCurrentRating = 4.5; // Exemplo: 4.5 de 5 estrelas
+
+        // Renderiza as estrelas quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStars('playerRating', playerCurrentRating);
+        });
+
+        // --- Para um sistema de recomendação completo, o JavaScript puro precisaria: ---
+        // 1. Enviar a avaliação do usuário para um servidor (Backend)
+        //    Ex: usando `fetch()` para fazer uma requisição POST com a nova avaliação.
+        // 2. Receber a média das avaliações do servidor para exibir.
+        // 3. Implementar a lógica de 'hover' e 'click' para que o *usuário* possa dar a avaliação.
+        //    (No momento, as estrelas são apenas para exibição da avaliação *existente*.)
+        // 4. Armazenar a avaliação no navegador (localStorage/sessionStorage) para um feedback visual imediato.
+
+        // Exemplo (comentado) de como a interação de clique poderia ser implementada para um usuário avaliador:
+        /*
+        document.addEventListener('DOMContentLoaded', () => {
+            const ratingContainer = document.getElementById('playerRating');
+            if (ratingContainer) {
+                // Renderiza as estrelas inicialmente
+                renderStars('playerRating', playerCurrentRating);
+
+                ratingContainer.addEventListener('mouseover', (event) => {
+                    if (event.target.classList.contains('star')) {
+                        const stars = Array.from(ratingContainer.children);
+                        const hoveredStarIndex = stars.indexOf(event.target);
+                        stars.forEach((star, index) => {
+                            if (index <= hoveredStarIndex) {
+                                star.classList.add('hover-selected'); // Uma classe para hover
+                            } else {
+                                star.classList.remove('hover-selected');
+                            }
+                        });
+                    }
+                });
+
+                ratingContainer.addEventListener('mouseout', () => {
+                    const stars = Array.from(ratingContainer.children);
+                    stars.forEach(star => star.classList.remove('hover-selected'));
+                });
+
+                ratingContainer.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('star')) {
+                        const stars = Array.from(ratingContainer.children);
+                        const clickedStarIndex = stars.indexOf(event.target);
+                        const newRating = clickedStarIndex + 1; // 1-based rating
+
+                        // Aqui você enviaria 'newRating' para o seu backend
+                        console.log(`Nova avaliação: ${newRating} estrelas`);
+
+                        // Atualiza a exibição local (simulando uma resposta do servidor)
+                        playerCurrentRating = newRating; // Atualiza a variável global (apenas para este exemplo)
+                        renderStars('playerRating', playerCurrentRating);
+                    }
+                });
+            }
+        });
+        */
+    </script>
+</body>
+</html>
