@@ -11,11 +11,15 @@
     --error-color: #CC3300;
 }
 
+/* Base Reset e Global Box-Sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-behavior: smooth;
+}
+
+html, body {
+    overflow-x: hidden; /* Impede a barra de rolagem horizontal em caso de overflow */
 }
 
 body {
@@ -28,6 +32,7 @@ body {
     min-height: 100vh;
 }
 
+/* Header */
 header {
     background-color: var(--header-bg);
     color: white;
@@ -50,15 +55,16 @@ header {
     color: var(--yellow-color);
 }
 
-
 nav ul {
     list-style: none;
     display: flex;
-    scroll-behavior: smooth;
+    gap: 25px; /* Usa gap para espaçamento entre itens da navegação */
+    flex-wrap: wrap; /* Permite que os itens da navegação quebrem para a próxima linha */
+    justify-content: center; /* Centraliza os itens quando eles quebram */
 }
 
 nav ul li {
-    margin-left: 25px;
+    /* Não precisa de margin-left aqui, pois o gap já faz o espaçamento */
 }
 
 nav ul li a {
@@ -72,6 +78,7 @@ nav ul li a:hover {
     color: var(--secondary-color);
 }
 
+/* Botões */
 .btn {
     display: inline-block;
     background-color: var(--accent-color);
@@ -101,11 +108,18 @@ nav ul li a:hover {
     transform: translateY(-2px);
 }
 
+.btn-small {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* Seções Gerais */
 .section {
     padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+    width: 100%; /* Garante que a seção ocupe a largura total disponível */
 }
 
 .section:nth-child(even) {
@@ -141,6 +155,7 @@ nav ul li a:hover {
     margin-right: auto;
 }
 
+/* Footer */
 footer {
     background-color: var(--header-bg);
     color: white;
@@ -150,40 +165,23 @@ footer {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
 
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 1rem;
+/* Animações SPA */
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    nav ul {
-        flex-direction: column;
-        margin-top: 1rem;
-    }
-
-    nav ul li {
-        margin: 0.5rem 0;
-    }
-
-    .btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    .section {
-        padding: 3rem 1rem;
-    }
-
-    .section h2 {
-        font-size: 2rem;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+main.content-entering {
+    animation: fadeInContent 0.6s ease-out forwards;
 }
 
+/* Hero Section (Home) */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
     background-size: cover;
@@ -212,6 +210,7 @@ footer {
     text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
+/* Feature Grid (Como o LinkeFut Funciona) */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -246,20 +245,7 @@ footer {
     margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.8rem;
-    }
-
-    .hero p {
-        font-size: 1.2rem;
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
+/* Player Cards Grid (Jogadoras em Destaque) */
 .player-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -267,6 +253,7 @@ footer {
     margin-top: 3rem;
     justify-items: center;
     align-items: stretch;
+    width: 100%; /* Garante que a grade ocupe a largura total disponível */
 }
 
 .player-card {
@@ -324,40 +311,17 @@ footer {
     padding-top: 1rem;
 }
 
-.btn-small {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.95rem;
-}
-
-@media (max-width: 1024px) {
-    .player-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .player-card:nth-child(4) {
-        grid-column: auto;
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .player-cards-grid {
-        grid-template-columns: 1fr;
-    }
-    .player-card:nth-child(4) {
-        grid-column: auto;
-        max-width: 100%;
-    }
-}
-
+/* Formulário Geral (Login/Cadastro) */
 .form-container {
     background-color: #fff;
-    padding: 3rem;
+    padding: 3rem 2rem; /* Padrao: padding horizontal 2rem */
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     max-width: 450px;
     margin: 4rem auto;
     text-align: left;
     flex-grow: 1;
+    width: calc(100% - 2rem); /* Garante um pequeno espaço nas laterais */
 }
 
 .form-container h2 {
@@ -381,7 +345,10 @@ footer {
 
 .form-group input[type="email"],
 .form-group input[type="password"],
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group input[type="url"] {
     width: 100%;
     padding: 1rem 1.2rem;
     border: 1px solid var(--input-border);
@@ -392,7 +359,10 @@ footer {
 
 .form-group input[type="email"]:focus,
 .form-group input[type="password"]:focus,
-.form-group input[type="text"]:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="number"]:focus,
+.form-group input[type="url"]:focus {
     border-color: var(--input-focus-border);
     outline: none;
     box-shadow: 0 0 0 0.25rem rgba(1, 35, 69, 0.3);
@@ -436,47 +406,44 @@ footer {
     text-align: left;
 }
 
-
-/* Adicione este CSS no final do seu style.css */
-
+/* Estilos para Seleção de Tipo de Usuário (Radio Buttons) */
 .user-type-selection {
-    margin-bottom: 2.5rem; /* Espaçamento para o próximo elemento */
+    margin-bottom: 2.5rem;
 }
 
 .user-type-selection label {
-    margin-bottom: 1rem; /* Espaçamento da label "Eu sou:" */
+    margin-bottom: 1rem;
     text-align: left;
     display: block;
 }
 
 .radio-group {
     display: flex;
-    justify-content: space-around; /* Distribui os radio buttons */
+    justify-content: space-around;
     gap: 1rem;
     padding: 0.8rem 1rem;
     border: 1px solid var(--input-border);
     border-radius: 6px;
-    background-color: #f8f8f8; /* Um fundo suave para o grupo */
+    background-color: #f8f8f8;
 }
 
 .radio-group input[type="radio"] {
-    /* Esconde o radio button padrão */
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
-    pointer-events: none; /* Garante que o input não é clicável diretamente */
+    pointer-events: none;
 }
 
 .radio-group label {
     position: relative;
-    padding-left: 28px; /* Espaço para o radio button customizado */
+    padding-left: 28px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    font-weight: normal; /* Para não ficar negrito como as outras labels */
+    font-weight: normal;
     color: var(--text-dark);
-    margin-bottom: 0; /* Anula o margin-bottom do .form-group label */
+    margin-bottom: 0;
 }
 
 .radio-group label::before {
@@ -496,7 +463,7 @@ footer {
 .radio-group input[type="radio"]:checked + label::after {
     content: '';
     position: absolute;
-    left: 5px; /* Ajusta a posição da bolinha interna */
+    left: 5px;
     top: 50%;
     transform: translateY(-50%);
     width: 10px;
@@ -506,20 +473,221 @@ footer {
 }
 
 .radio-group label:hover::before {
-    border-color: var(--accent-color); /* Efeito hover na borda do radio */
+    border-color: var(--accent-color);
 }
 
 .radio-group input[type="radio"]:focus + label::before {
-    box-shadow: 0 0 0 3px rgba(1, 35, 69, 0.3); /* Efeito de foco */
+    box-shadow: 0 0 0 3px rgba(1, 35, 69, 0.3);
 }
 
-@media (max-width: 480px) {
-    .radio-group {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.8rem;
+/* Estilos para formulário de cadastro de jogadoras mais largo (large-form) */
+.form-container.large-form {
+    max-width: 900px;
+    padding: 3.5rem 3rem; /* Padding horizontal maior para desktop */
+}
+
+/* Estilos para grids de formulário */
+.form-grid-2,
+.form-grid-3 {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.8rem;
+}
+
+.form-grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.form-grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.form-grid-2 .form-group,
+.form-grid-3 .form-group {
+    margin-bottom: 0;
+}
+
+.form-container h3 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.form-container h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: var(--accent-color);
+    border-radius: 5px;
+}
+
+.form-help-text {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: -1rem;
+}
+
+/* Estilos para novos inputs em formulários (select, textarea, file) */
+select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%2C114.1L146.2%2C254.9L5.4%2C114.1h281.6z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7em top 50%;
+    background-size: 0.65em auto;
+}
+
+select:focus {
+    border-color: var(--input-focus-border);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+}
+
+textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--input-focus-border);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+}
+
+input[type="file"] {
+    padding: 0.8rem 0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="file"]:focus {
+    border-color: var(--input-focus-border);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+}
+
+/* Responsividade Geral */
+@media (max-width: 1024px) {
+    .player-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
-    .radio-group label {
-        margin-bottom: 0.5rem;
+    .player-card:nth-child(4) {
+        grid-column: auto;
+        max-width: 100%;
+    }
+
+    /* Ajuste para forms large em tablets maiores */
+    .form-container.large-form {
+        max-width: 760px;
+        padding: 3rem 2.5rem; /* Reduz padding horizontal */
+    }
+    .form-grid-2 { /* Em 1024px, 2 colunas pode ficar um pouco apertado */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .form-grid-3 { /* Pode passar para 2 colunas em 1024px */
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        margin-top: 1rem;
+        gap: 10px; /* Espaçamento vertical para itens do menu */
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .section {
+        padding: 3rem 1rem;
+    }
+
+    .section h2 {
+        font-size: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .player-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .player-card:nth-child(4) {
+        grid-column: auto;
+        max-width: 100%;
+    }
+
+    /* Ajuste para forms gerais */
+    .form-container {
+        width: calc(100% - 1rem); /* Mais espaço nas laterais para celular */
+        padding: 2.5rem 1.5rem; /* Reduz padding */
+        margin: 2rem auto; /* Ajusta margin vertical */
+    }
+
+    /* Ajuste para large-form em tablets/celulares */
+    .form-container.large-form {
+        padding: 2.5rem 1.5rem; /* Padding reduzido */
+    }
+    .form-grid-2,
+    .form-grid-3 {
+        grid-template-columns: 1fr; /* Volta para 1 coluna */
+    }
+}
+
+@media (max-width: 480px) { /* Celulares menores */
+    .form-container {
+        padding: 1.5rem 1rem; /* Padding ainda menor */
+        margin: 1.5rem auto;
+    }
+    .form-container.large-form {
+        padding: 1.5rem 1rem; /* Padding ainda menor */
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .hero p {
+        font-size: 1rem;
     }
 }
