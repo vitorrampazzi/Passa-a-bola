@@ -15,6 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -49,9 +50,11 @@ header {
     color: var(--yellow-color);
 }
 
+
 nav ul {
     list-style: none;
     display: flex;
+    scroll-behavior: smooth;
 }
 
 nav ul li {
@@ -431,4 +434,92 @@ footer {
     margin-top: 0.6rem;
     display: block;
     text-align: left;
+}
+
+
+/* Adicione este CSS no final do seu style.css */
+
+.user-type-selection {
+    margin-bottom: 2.5rem; /* Espaçamento para o próximo elemento */
+}
+
+.user-type-selection label {
+    margin-bottom: 1rem; /* Espaçamento da label "Eu sou:" */
+    text-align: left;
+    display: block;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: space-around; /* Distribui os radio buttons */
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background-color: #f8f8f8; /* Um fundo suave para o grupo */
+}
+
+.radio-group input[type="radio"] {
+    /* Esconde o radio button padrão */
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none; /* Garante que o input não é clicável diretamente */
+}
+
+.radio-group label {
+    position: relative;
+    padding-left: 28px; /* Espaço para o radio button customizado */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-weight: normal; /* Para não ficar negrito como as outras labels */
+    color: var(--text-dark);
+    margin-bottom: 0; /* Anula o margin-bottom do .form-group label */
+}
+
+.radio-group label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.radio-group input[type="radio"]:checked + label::after {
+    content: '';
+    position: absolute;
+    left: 5px; /* Ajusta a posição da bolinha interna */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.radio-group label:hover::before {
+    border-color: var(--accent-color); /* Efeito hover na borda do radio */
+}
+
+.radio-group input[type="radio"]:focus + label::before {
+    box-shadow: 0 0 0 3px rgba(1, 35, 69, 0.3); /* Efeito de foco */
+}
+
+@media (max-width: 480px) {
+    .radio-group {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.8rem;
+    }
+    .radio-group label {
+        margin-bottom: 0.5rem;
+    }
 }
