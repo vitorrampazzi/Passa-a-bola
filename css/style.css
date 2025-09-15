@@ -1,20 +1,22 @@
 :root {
-    --primary-color: #663399; /* Roxo Profundo */
-    --secondary-color: #E91E63; /* Rosa Vibrante */
-    --accent-color: #4CAF50; /* Verde Brilhante */
-    --yellow-color: #FFD700; /* Amarelo Dourado (mantido para contrastes ou detalhes) */
-    --background-light: #FDFDFD; /* Fundo quase branco */
-    --text-dark: #333333; /* Texto escuro */
-    --header-footer-bg: #3A1C5A; /* Roxo mais escuro para cabeçalho/rodapé */
-    --input-border: #cccccc; /* Borda de input neutra */
-    --input-focus-border: var(--primary-color); /* Borda de foco roxa */
-    --error-color: #CC3300; /* Vermelho para erros */
+    --primary-color: #663399; 
+    --secondary-color: #E91E63; 
+    --accent-color: #4CAF50; 
+    --yellow-color: #FFD700; 
+    --background-light: #FDFDFD; 
+    --text-dark: #333333;
+    --header-footer-bg: #3A1C5A;
+    --input-border: #cccccc; 
+    --input-focus-border: var(--primary-color);
+    --error-color: #CC3300;
 
-    /* Cores derivadas para consistência de hover e transparência */
-    --primary-hover-color: #52297A; /* Roxo mais escuro para hover */
-    --accent-hover-color: #388E3C; /* Verde mais escuro para hover */
-    --light-pink-bg: #FFF0F5; /* Rosa muito claro para fundos sutis */
-    --primary-transparent: rgba(102, 51, 153, 0.25); /* Roxo com transparência */
+   
+    --primary-hover-color: #52297A;
+    --accent-hover-color: #388E3C; 
+    --light-pink-bg: #FFF0F5; 
+    --primary-transparent: rgba(102, 51, 153, 0.25); 
+
+    --header-height: 5rem; 
 }
 
 * {
@@ -45,6 +47,12 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed; /* Torna o cabeçalho fixo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+    height: var(--header-height); /* Define a altura do cabeçalho */
 }
 
 .logo {
@@ -56,7 +64,7 @@ header {
 }
 
 .logo:hover {
-    color: var(--secondary-color);
+    color: var(--yellow-color);
 }
 
 nav ul {
@@ -158,8 +166,8 @@ footer {
     color: white;
     text-align: center;
     padding: 2rem 0;
-    margin-top: auto;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    width: 100%;
 }
 
 @keyframes fadeInContent {
@@ -178,14 +186,26 @@ main.content-entering {
 }
 
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
+    background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+        url('../img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; 
     color: white;
     text-align: center;
-    padding: 8rem 2rem;
+    
+    min-height: calc(100vh - var(--header-height));
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
     animation: fadeIn 1s ease-out;
 }
 
@@ -690,8 +710,8 @@ input[type="file"]:focus {
     header {
         flex-direction: column;
         padding: 1rem;
+        height: auto;
     }
-
     nav ul {
         flex-direction: column;
         margin-top: 1rem;
