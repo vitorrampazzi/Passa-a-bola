@@ -1,14 +1,20 @@
 :root {
-    --primary-color: #012345;
-    --secondary-color: #FFC0CB;
-    --accent-color: #009933;
-    --yellow-color: #FFD700;
-    --background-light: #FDFDFD;
-    --text-dark: #333333;
-    --header-bg: #3f7634;
-    --input-border: #cccccc;
-    --input-focus-border: var(--primary-color);
-    --error-color: #CC3300;
+    --primary-color: #663399; /* Roxo Profundo */
+    --secondary-color: #E91E63; /* Rosa Vibrante */
+    --accent-color: #4CAF50; /* Verde Brilhante */
+    --yellow-color: #FFD700; /* Amarelo Dourado (mantido para contrastes ou detalhes) */
+    --background-light: #FDFDFD; /* Fundo quase branco */
+    --text-dark: #333333; /* Texto escuro */
+    --header-footer-bg: #3A1C5A; /* Roxo mais escuro para cabeçalho/rodapé */
+    --input-border: #cccccc; /* Borda de input neutra */
+    --input-focus-border: var(--primary-color); /* Borda de foco roxa */
+    --error-color: #CC3300; /* Vermelho para erros */
+
+    /* Cores derivadas para consistência de hover e transparência */
+    --primary-hover-color: #52297A; /* Roxo mais escuro para hover */
+    --accent-hover-color: #388E3C; /* Verde mais escuro para hover */
+    --light-pink-bg: #FFF0F5; /* Rosa muito claro para fundos sutis */
+    --primary-transparent: rgba(102, 51, 153, 0.25); /* Roxo com transparência */
 }
 
 * {
@@ -32,7 +38,7 @@ body {
 }
 
 header {
-    background-color: var(--header-bg);
+    background-color: var(--header-footer-bg);
     color: white;
     padding: 1rem 2rem;
     display: flex;
@@ -50,7 +56,7 @@ header {
 }
 
 .logo:hover {
-    color: var(--yellow-color);
+    color: var(--secondary-color);
 }
 
 nav ul {
@@ -88,7 +94,7 @@ nav ul li a:hover {
 }
 
 .btn:hover {
-    background-color: #007722;
+    background-color: var(--accent-hover-color);
     transform: translateY(-2px);
 }
 
@@ -97,7 +103,7 @@ nav ul li a:hover {
 }
 
 .btn-secondary:hover {
-    background-color: #001133;
+    background-color: var(--primary-hover-color);
     transform: translateY(-2px);
 }
 
@@ -115,7 +121,7 @@ nav ul li a:hover {
 }
 
 .section:nth-child(even) {
-    background-color: #f5f5f5;
+    background-color: var(--light-pink-bg);
 }
 
 .section h2 {
@@ -148,7 +154,7 @@ nav ul li a:hover {
 }
 
 footer {
-    background-color: var(--header-bg);
+    background-color: var(--header-footer-bg);
     color: white;
     text-align: center;
     padding: 2rem 0;
@@ -233,7 +239,6 @@ main.content-entering {
     margin-bottom: 0;
 }
 
-
 .player-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -243,7 +248,6 @@ main.content-entering {
     align-items: stretch;
     width: 100%;
 }
-
 
 .player-card {
     background-color: white;
@@ -272,7 +276,7 @@ main.content-entering {
     object-fit: cover;
     margin: 0 auto 1.5rem auto;
     border: 4px solid var(--accent-color);
-    box-shadow: 0 0 0 5px rgba(0, 153, 51, 0.2);
+    box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.2);
 }
 
 .player-card h3 {
@@ -295,16 +299,9 @@ main.content-entering {
     padding-top: 1rem;
 }
 
-
 .home-featured-players-grid {
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
 }
-
-.home-featured-players-grid .player-card:nth-child(4) {
-    grid-column: auto; 
-    margin: 0 auto;
-}
-
 
 .form-container {
     background-color: #fff;
@@ -359,7 +356,7 @@ main.content-entering {
 .form-group input[type="url"]:focus {
     border-color: var(--input-focus-border);
     outline: none;
-    box-shadow: 0 0 0 0.25rem rgba(1, 35, 69, 0.3);
+    box-shadow: 0 0 0 0.25rem var(--primary-transparent);
 }
 
 .form-actions {
@@ -470,7 +467,7 @@ main.content-entering {
 }
 
 .radio-group input[type="radio"]:focus + label::before {
-    box-shadow: 0 0 0 3px rgba(1, 35, 69, 0.3);
+    box-shadow: 0 0 0 3px var(--primary-transparent);
 }
 
 .form-container.large-form {
@@ -571,7 +568,7 @@ select {
 select:focus {
     border-color: var(--input-focus-border);
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+    box-shadow: 0 0 0 0.2rem var(--primary-transparent);
 }
 
 textarea {
@@ -587,7 +584,7 @@ textarea {
 textarea:focus {
     border-color: var(--input-focus-border);
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+    box-shadow: 0 0 0 0.2rem var(--primary-transparent);
 }
 
 input[type="file"] {
@@ -601,7 +598,16 @@ input[type="file"] {
 input[type="file"]:focus {
     border-color: var(--input-focus-border);
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
+    box-shadow: 0 0 0 0.2rem var(--primary-transparent);
+}
+
+.calculated-age {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #555;
+    text-align: left;
+    padding-left: 5px;
 }
 
 .search-filter-bar {
@@ -643,7 +649,7 @@ input[type="file"]:focus {
 .search-filter-bar select:focus {
     border-color: var(--input-focus-border);
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.2);
+    box-shadow: 0 0 0 0.2rem var(--primary-transparent);
 }
 
 .search-filter-bar button {
@@ -658,9 +664,8 @@ input[type="file"]:focus {
         grid-template-columns: repeat(2, 1fr);
     }
     .home-featured-players-grid {
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(2, 1fr);
     }
-
     .form-container.large-form {
         max-width: 760px;
         padding: 3rem 2.5rem;
@@ -719,7 +724,7 @@ input[type="file"]:focus {
     }
 
     .player-cards-grid {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
     .home-featured-players-grid {
         grid-template-columns: 1fr;
@@ -742,7 +747,6 @@ input[type="file"]:focus {
         padding: 1.5rem;
         margin-bottom: 2rem;
     }
-
     .search-filter-bar {
         flex-direction: column;
         padding: 1rem;

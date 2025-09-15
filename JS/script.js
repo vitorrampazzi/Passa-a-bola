@@ -1,15 +1,12 @@
 function renderStars(containerId, rating) {
     const container = document.getElementById(containerId);
     if (!container) return;
-
     container.innerHTML = '';
-
     const maxStars = 5;
     for (let i = 1; i <= maxStars; i++) {
         const star = document.createElement('span');
         star.classList.add('star');
         star.innerHTML = '&#9733;';
-
         if (i <= rating) {
             star.classList.add('selected');
         } else {
@@ -17,6 +14,18 @@ function renderStars(containerId, rating) {
         }
         container.appendChild(star);
     }
+}
+
+function calculateAge(dobString) {
+    if (!dobString) return null;
+    const dob = new Date(dobString);
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 const playerCurrentRating = 4.5;
@@ -27,73 +36,65 @@ function loadPlayerCards(containerId) {
         console.warn(`[loadPlayerCards] Contêiner com ID '${containerId}' não encontrado.`);
         return;
     }
-
     console.log(`[loadPlayerCards] Carregando cards para o contêiner: '${containerId}'`);
-
     const players = [
         {
             name: "Maria Silva",
             position: "Atacante",
             age: 20,
-            photo: "img/maria_silva.jpg",
+            photo: "../img/mulher1.jpg",
             profileLink: "perfil_jogadora.html?id=maria-silva"
         },
         {
             name: "Ana Santos",
             position: "Meio-Campo",
             age: 22,
-            photo: "img/ana_santos.jpg",
+            photo: "../img/mulher2.jpg",
             profileLink: "perfil_jogadora.html?id=ana-santos"
         },
         {
             name: "Beatriz Costa",
             position: "Zagueira",
             age: 19,
-            photo: "img/beatriz_costa.jpg",
+            photo: "../img/mulher3.jpg",
             profileLink: "perfil_jogadora.html?id=beatriz-costa"
         },
         {
             name: "Carla Oliveira",
             position: "Goleira",
             age: 25,
-            photo: "img/carla_oliveira.jpg",
+            photo: "../img/mulher3.jpg",
             profileLink: "perfil_jogadora.html?id=carla-oliveira"
         },
         {
             name: "Daniela Pereira",
             position: "Lateral Esquerda",
             age: 21,
-            photo: "img/daniela_pereira.jpg",
+            photo: "../img/mulher2.jpg",
             profileLink: "perfil_jogadora.html?id=daniela-pereira"
         },
         {
             name: "Fernanda Lima",
             position: "Atacante",
             age: 18,
-            photo: "img/fernanda_lima.jpg",
+            photo: "../img/mulher1.jpg",
             profileLink: "perfil_jogadora.html?id=fernanda-lima"
         },
     ];
-
     container.innerHTML = '';
-
     players.forEach((player, index) => {
         const card = document.createElement('div');
         card.classList.add('player-card');
-
         const imgElement = new Image();
         imgElement.src = player.photo;
         imgElement.alt = `Foto de ${player.name}`;
         imgElement.classList.add('player-card-photo');
         imgElement.onerror = () => {
             console.error(`[loadPlayerCards] ERRO: Imagem para ${player.name} (${player.photo}) não encontrada!`);
-            // imgElement.src = 'img/placeholder.jpg'; // Opcional: usar uma imagem de placeholder
         };
         imgElement.onload = () => {
             console.log(`[loadPlayerCards] Imagem para ${player.name} (${player.photo}) carregada com sucesso.`);
         };
-
-
         card.innerHTML = `
             <h3>${player.name}</h3>
             <p class="player-card-position">${player.position} - ${player.age} anos</p>
@@ -102,7 +103,6 @@ function loadPlayerCards(containerId) {
             </div>
         `;
         card.prepend(imgElement);
-
         container.appendChild(card);
         console.log(`[loadPlayerCards] Card da jogadora ${player.name} (Índice: ${index}) adicionado.`);
     });
@@ -117,42 +117,33 @@ async function loadPage(url, pushState = true) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const html = await response.text();
-
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-
         const newMain = doc.querySelector('main');
         const newTitle = doc.querySelector('title').textContent;
-
         if (newMain) {
             const currentMain = document.querySelector('main');
             if (currentMain) {
                 currentMain.classList.remove('content-entering');
                 void currentMain.offsetWidth;
-                
                 currentMain.innerHTML = newMain.innerHTML;
                 document.title = newTitle;
-                
                 currentMain.classList.add('content-entering');
             } else {
                 console.error('[loadPage] Elemento <main> atual não encontrado no DOM! Recarregando página completa.');
                 window.location.href = url;
                 return;
             }
-
             if (pushState) {
                 history.pushState({ path: url }, newTitle, url);
             }
-
             console.log(`[loadPage] Página '${url}' carregada e DOM atualizado. Inicializando scripts específicos...`);
             initPageSpecificScripts();
             window.scrollTo(0, 0);
-
         } else {
             console.error('[loadPage] Conteúdo <main> não encontrado na página carregada por AJAX. Recarregando página completa.');
             window.location.href = url;
         }
-
     } catch (error) {
         console.error('[loadPage] Erro ao carregar a página via AJAX. Recarregando página completa:', error);
         window.location.href = url;
@@ -167,14 +158,11 @@ function setupLoginFormValidation() {
         const passwordInput = document.getElementById('password');
         const emailError = document.getElementById('emailError');
         const passwordError = document.getElementById('passwordError');
-
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             let isValid = true;
-
             emailError.textContent = '';
             passwordError.textContent = '';
-
             if (emailInput.value.trim() === '') {
                 emailError.textContent = 'Por favor, digite seu email.';
                 isValid = false;
@@ -182,7 +170,6 @@ function setupLoginFormValidation() {
                 emailError.textContent = 'Por favor, digite um email válido.';
                 isValid = false;
             }
-
             if (passwordInput.value.trim() === '') {
                 passwordError.textContent = 'Por favor, digite sua senha.';
                 isValid = false;
@@ -190,10 +177,8 @@ function setupLoginFormValidation() {
                 passwordError.textContent = 'A senha deve ter no mínimo 6 caracteres.';
                 isValid = false;
             }
-
             const selectedUserType = document.querySelector('input[name="userType"]:checked');
             const userType = selectedUserType ? selectedUserType.value : 'unknown';
-
             if (isValid) {
                 console.log('Login Submetido:', {
                     email: emailInput.value,
@@ -227,11 +212,29 @@ function setupRegistrationFormValidation() {
         const assistsInput = document.getElementById('assists');
         const gamesInput = document.getElementById('games');
         const profilePictureInput = document.getElementById('profilePicture');
+        const calculatedAgeDisplay = document.getElementById('calculatedAgeDisplay');
+
+        if (dateOfBirthInput && calculatedAgeDisplay) {
+            dateOfBirthInput.addEventListener('input', () => {
+                const age = calculateAge(dateOfBirthInput.value);
+                if (age !== null && !isNaN(age) && age >= 0) {
+                    calculatedAgeDisplay.textContent = `Idade: ${age} anos`;
+                    document.getElementById('dateOfBirthError').textContent = '';
+                } else {
+                    calculatedAgeDisplay.textContent = '';
+                }
+            });
+            if (dateOfBirthInput.value) {
+                 const age = calculateAge(dateOfBirthInput.value);
+                 if (age !== null && !isNaN(age) && age >= 0) {
+                     calculatedAgeDisplay.textContent = `Idade: ${age} anos`;
+                 }
+            }
+        }
 
         registerForm.addEventListener('submit', function(event) {
             event.preventDefault();
             let isValid = true;
-
             const errorMessages = document.querySelectorAll('.error-message');
             errorMessages.forEach(el => el.textContent = '');
 
@@ -274,21 +277,13 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
+            const age = calculateAge(dateOfBirthInput.value);
             if (dateOfBirthInput.value.trim() === '') {
                 document.getElementById('dateOfBirthError').textContent = 'Por favor, digite sua data de nascimento.';
                 isValid = false;
-            } else {
-                const dob = new Date(dateOfBirthInput.value);
-                const today = new Date();
-                let age = today.getFullYear() - dob.getFullYear();
-                const m = today.getMonth() - dob.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-                    age--;
-                }
-                if (age < 12) {
-                    document.getElementById('dateOfBirthError').textContent = 'A jogadora deve ter pelo menos 12 anos.';
-                    isValid = false;
-                }
+            } else if (age === null || isNaN(age) || age < 12) {
+                document.getElementById('dateOfBirthError').textContent = 'A jogadora deve ter pelo menos 12 anos.';
+                isValid = false;
             }
 
             if (heightInput.value.trim() === '' || isNaN(heightInput.value) || parseInt(heightInput.value) < 120) {
@@ -310,7 +305,6 @@ function setupRegistrationFormValidation() {
                 document.getElementById('bioError').textContent = 'A biografia deve ter no mínimo 50 caracteres.';
                 isValid = false;
             }
-
             if (youtubeLinkInput.value.trim() !== '' && !youtubeLinkInput.checkValidity()) {
                 document.getElementById('youtubeLinkError').textContent = 'Por favor, insira um link de YouTube válido.';
                 isValid = false;
@@ -319,7 +313,6 @@ function setupRegistrationFormValidation() {
                 document.getElementById('googleDriveLinkError').textContent = 'Por favor, insira um link de Google Drive válido.';
                 isValid = false;
             }
-
             if (goalsInput.value.trim() !== '' && (isNaN(goalsInput.value) || parseInt(goalsInput.value) < 0)) {
                 document.getElementById('goalsError').textContent = 'Gols deve ser um número válido e não negativo.';
                 isValid = false;
@@ -332,7 +325,6 @@ function setupRegistrationFormValidation() {
                 document.getElementById('gamesError').textContent = 'Jogos deve ser um número válido e não negativo.';
                 isValid = false;
             }
-
             if (profilePictureInput.files.length > 0) {
                 const file = profilePictureInput.files[0];
                 const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -345,7 +337,6 @@ function setupRegistrationFormValidation() {
                     isValid = false;
                 }
             }
-
             if (isValid) {
                 const formData = {
                     fullName: fullNameInput.value,
@@ -353,6 +344,7 @@ function setupRegistrationFormValidation() {
                     position: positionInput.value,
                     preferredFoot: preferredFootInput.value,
                     dateOfBirth: dateOfBirthInput.value,
+                    age: age,
                     height: heightInput.value,
                     weight: weightInput.value,
                     nationality: nationalityInput.value,
@@ -391,7 +383,6 @@ function setupTalentSearchPage() {
     }
 }
 
-
 function initPageSpecificScripts() {
     console.log('[initPageSpecificScripts] Inicializando scripts para a página atual.');
     setupLoginFormValidation();
@@ -409,10 +400,8 @@ function initPageSpecificScripts() {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     console.log('[DOMContentLoaded] DOM completamente carregado. Configurando listeners globais e scripts iniciais.');
-
     document.body.addEventListener('click', event => {
         const { target } = event;
         if (target.tagName === 'A' &&
@@ -427,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return; 
         }
     });
-
     document.body.addEventListener('click', event => {
         const { target } = event;
         if (target.tagName === 'A' && target.hash) {
@@ -441,7 +429,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
 
     window.addEventListener('popstate', event => {
         console.log('[popstate] Evento popstate disparado. Carregando estado anterior do histórico.');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkeFut - Cadastrar Jogadora</title>
+    <title>Passa a Bola</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
@@ -20,13 +20,12 @@
             </ul>
         </nav>
     </header>
-
-    <main class="register-main">
+<main class="register-main">
         <div class="form-container large-form">
             <h2>Crie seu perfil de Jogadora no LinkeFut</h2>
             <form id="registerForm">
 
-
+                <!-- Informações de Acesso -->
                 <div class="form-section-block">
                     <h3>Informações de Acesso</h3>
                     <div class="form-group">
@@ -34,14 +33,12 @@
                         <input type="text" id="fullName" name="fullName" placeholder="Seu nome completo" required>
                         <span class="error-message" id="fullNameError"></span>
                     </div>
-
-                    <div class="form-group">
+<div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
                         <span class="error-message" id="emailError"></span>
                     </div>
-
-                    <div class="form-grid-2">
+<div class="form-grid-2">
                         <div class="form-group">
                             <label for="password">Senha:</label>
                             <input type="password" id="password" name="password" placeholder="Mínimo 6 caracteres" required>
@@ -54,13 +51,14 @@
                         </div>
                     </div>
                 </div>
-
+<!-- Dados Pessoais e Físicos -->
                 <div class="form-section-block">
                     <h3>Dados Pessoais e Físicos</h3>
                     <div class="form-grid-3">
                         <div class="form-group">
                             <label for="dateOfBirth">Data de Nascimento:</label>
                             <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                            <span class="calculated-age" id="calculatedAgeDisplay"></span>
                             <span class="error-message" id="dateOfBirthError"></span>
                         </div>
                         <div class="form-group">
@@ -87,8 +85,7 @@
                         </div>
                     </div>
                 </div>
-
-
+<!-- Posição e Características de Jogo -->
                 <div class="form-section-block">
                     <h3>Características de Jogo</h3>
                     <div class="form-grid-2">
@@ -116,22 +113,20 @@
                             <span class="error-message" id="preferredFootError"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="bio">Breve Biografia / Estilo de Jogo:</label>
                         <textarea id="bio" name="bio" rows="5" placeholder="Conte um pouco sobre você, seu estilo de jogo, suas qualidades..." required></textarea>
                         <span class="error-message" id="bioError"></span>
                     </div>
                 </div>
-
-
+<!-- Vídeos de Destaque -->
                 <div class="form-section-block">
                     <h3>Vídeos de Destaque</h3>
                     <p class="form-help-text">Compartilhe links dos seus melhores momentos em campo.</p>
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label for="youtubeLink">Link de Vídeo (YouTube):</label>
-                            <input type="url" id="youtubeLink" name="youtubeLink" placeholder="<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/7445" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>" pattern="https?://(www\.)?youtube\.com/.*|https?://youtu\.be/.*">
+                            <input type="url" id="youtubeLink" name="youtubeLink" placeholder="<div className="video-container mb-3"><iframe width="100%" height="315" src="https://www.youtube.com/embed/7426" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>" pattern="https?://(www\.)?youtube\.com/.*|https?://youtu\.be/.*">
                             <span class="error-message" id="youtubeLinkError"></span>
                         </div>
                         <div class="form-group">
@@ -141,8 +136,7 @@
                         </div>
                     </div>
                 </div>
-
-
+<!-- Estatísticas Principais -->
                 <div class="form-section-block">
                     <h3>Estatísticas Principais</h3>
                     <p class="form-help-text">Seja honesta sobre seus números!</p>
@@ -164,7 +158,7 @@
                         </div>
                     </div>
                 </div>
-
+<!-- Foto de Perfil -->
                 <div class="form-section-block">
                     <h3>Foto de Perfil</h3>
                     <div class="form-group">
@@ -184,9 +178,8 @@
             </div>
         </div>
     </main>
-
-    <footer>
-        <p>&copy; 2025 Passa a Bola. Todos os direitos reservados. Projeto desenvolvido por Daniel Brito, Gustavo Palomares, Vitor Rampazzi.</p>
+<footer>
+        <p>&copy; 2024 LinkeFut. Todos os direitos reservados. Projeto desenvolvido por Daniel Brito, Gustavo Palomares, Vitor Rampazzi.</p>
     </footer>
 
     <script src="./JS/script.js"></script>
