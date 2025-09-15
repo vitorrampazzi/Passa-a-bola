@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkeFut - Buscar Talentos</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">LinkeFut</a>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#features">Recursos</a></li>
+                <li><a href="index.html#available-players">Jogadoras em Destaque</a></li>
+                <li><a href="cadastrar_jogadora.html">Cadastrar Jogadora</a></li>
+                <li><a href="buscar_talentos.html">Buscar Talentos</a></li>
+                <li><a href="login.html">Entrar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="talents-main">
+        <section class="section">
+            <h2>Buscar Talentos</h2>
+            <p>Explore o perfil de milhares de jogadoras e encontre o talento ideal para o seu time.</p>
+
+            <div class="search-filter-bar">
+                <input type="text" id="searchPlayer" placeholder="Buscar por nome, posição, clube...">
+                <select id="filterPosition">
+                    <option value="">Todas as Posições</option>
+                    <option value="Goleira">Goleira</option>
+                    <option value="Zagueira">Zagueira</option>
+                    <option value="Lateral">Lateral</option>
+                    <option value="Meio-Campo">Meio-Campo</option>
+                    <option value="Atacante">Atacante</option>
+                </select>
+                <select id="filterAge">
+                    <option value="">Todas as Idades</option>
+                    <option value="U17">Sub-17</option>
+                    <option value="U20">Sub-20</option>
+                    <option value="Senior">Sênior</option>
+                </select>
+                <button class="btn btn-small btn-secondary">Aplicar Filtros</button>
+            </div>
+
+            <div class="player-cards-grid full-width-grid" id="playerListings">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LinkeFut. Todos os direitos reservados. Projeto desenvolvido por Daniel Brito, Gustavo Palomares, Vitor Rampazzi.</p>
+    </footer>
+
+    <script src="./JS/script.js"></script>
+</body>
+</html>

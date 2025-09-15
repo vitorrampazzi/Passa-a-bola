@@ -1,3 +1,93 @@
+function renderStars(containerId, rating) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const maxStars = 5;
+    for (let i = 1; i <= maxStars; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.innerHTML = '&#9733;';
+
+        if (i <= rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.add('empty');
+        }
+        container.appendChild(star);
+    }
+}
+
+const playerCurrentRating = 4.5;
+
+function loadPlayerCards(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    // Dados fictícios de jogadoras para demonstração
+    const players = [
+        {
+            name: "Maria Silva",
+            position: "Atacante",
+            age: 20,
+            photo: "img/maria_silva.jpg",
+            profileLink: "perfil_jogadora.html?id=maria-silva"
+        },
+        {
+            name: "Ana Santos",
+            position: "Meio-Campo",
+            age: 22,
+            photo: "img/ana_santos.jpg",
+            profileLink: "perfil_jogadora.html?id=ana-santos"
+        },
+        {
+            name: "Beatriz Costa",
+            position: "Zagueira",
+            age: 19,
+            photo: "img/beatriz_costa.jpg",
+            profileLink: "perfil_jogadora.html?id=beatriz-costa"
+        },
+        {
+            name: "Carla Oliveira",
+            position: "Goleira",
+            age: 25,
+            photo: "img/carla_oliveira.jpg",
+            profileLink: "perfil_jogadora.html?id=carla-oliveira"
+        },
+        {
+            name: "Daniela Pereira",
+            position: "Lateral Esquerda",
+            age: 21,
+            photo: "img/daniela_pereira.jpg",
+            profileLink: "perfil_jogadora.html?id=daniela-pereira"
+        },
+        {
+            name: "Fernanda Lima",
+            position: "Atacante",
+            age: 18,
+            photo: "img/fernanda_lima.jpg",
+            profileLink: "perfil_jogadora.html?id=fernanda-lima"
+        },
+    ];
+
+    container.innerHTML = ''; // Limpa qualquer conteúdo existente
+
+    players.forEach(player => {
+        const card = document.createElement('div');
+        card.classList.add('player-card');
+
+        card.innerHTML = `
+            <img src="${player.photo}" alt="Foto de ${player.name}" class="player-card-photo">
+            <h3>${player.name}</h3>
+            <p class="player-card-position">${player.position} - ${player.age} anos</p>
+            <div class="player-card-actions">
+                <a href="${player.profileLink}" class="btn btn-small btn-secondary">Ver Perfil</a>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
 
 async function loadPage(url, pushState = true) {
     try {
@@ -14,7 +104,7 @@ async function loadPage(url, pushState = true) {
             const currentMain = document.querySelector('main');
 
             currentMain.classList.remove('content-entering');
-            void currentMain.offsetWidth; 
+            void currentMain.offsetWidth;
             
             currentMain.innerHTML = newMain.innerHTML;
             document.title = newTitle;
@@ -85,7 +175,6 @@ function setupLoginFormValidation() {
     }
 }
 
-
 function setupRegistrationFormValidation() {
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
@@ -111,16 +200,13 @@ function setupRegistrationFormValidation() {
             event.preventDefault();
             let isValid = true;
 
-
             const errorMessages = document.querySelectorAll('.error-message');
             errorMessages.forEach(el => el.textContent = '');
-
 
             if (fullNameInput.value.trim() === '') {
                 document.getElementById('fullNameError').textContent = 'Por favor, digite seu nome completo.';
                 isValid = false;
             }
-
 
             if (emailInput.value.trim() === '') {
                 document.getElementById('emailError').textContent = 'Por favor, digite seu email.';
@@ -130,7 +216,6 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-
             if (passwordInput.value.trim() === '') {
                 document.getElementById('passwordError').textContent = 'Por favor, digite sua senha.';
                 isValid = false;
@@ -138,7 +223,6 @@ function setupRegistrationFormValidation() {
                 document.getElementById('passwordError').textContent = 'A senha deve ter no mínimo 6 caracteres.';
                 isValid = false;
             }
-
 
             if (confirmPasswordInput.value.trim() === '') {
                 document.getElementById('confirmPasswordError').textContent = 'Por favor, confirme sua senha.';
@@ -148,18 +232,15 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-
             if (positionInput.value === '') {
                 document.getElementById('positionError').textContent = 'Por favor, selecione sua posição principal.';
                 isValid = false;
             }
 
-
             if (preferredFootInput.value === '') {
                 document.getElementById('preferredFootError').textContent = 'Por favor, selecione seu pé preferencial.';
                 isValid = false;
             }
-
 
             if (dateOfBirthInput.value.trim() === '') {
                 document.getElementById('dateOfBirthError').textContent = 'Por favor, digite sua data de nascimento.';
@@ -172,37 +253,32 @@ function setupRegistrationFormValidation() {
                 if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
                     age--;
                 }
-                if (age < 12) { 
+                if (age < 12) {
                     document.getElementById('dateOfBirthError').textContent = 'A jogadora deve ter pelo menos 12 anos.';
                     isValid = false;
                 }
             }
-
 
             if (heightInput.value.trim() === '' || isNaN(heightInput.value) || parseInt(heightInput.value) < 120) {
                 document.getElementById('heightError').textContent = 'Altura inválida (mín. 120cm).';
                 isValid = false;
             }
 
-
             if (weightInput.value.trim() === '' || isNaN(weightInput.value) || parseInt(weightInput.value) < 30) {
                 document.getElementById('weightError').textContent = 'Peso inválido (mín. 30kg).';
                 isValid = false;
             }
             
-
             if (nationalityInput.value.trim() === '') {
                 document.getElementById('nationalityError').textContent = 'Por favor, digite sua nacionalidade.';
                 isValid = false;
             }
 
-
-            if (bioInput.value.trim().length < 50) { 
+            if (bioInput.value.trim().length < 50) {
                 document.getElementById('bioError').textContent = 'A biografia deve ter no mínimo 50 caracteres.';
                 isValid = false;
             }
 
-  
             if (youtubeLinkInput.value.trim() !== '' && !youtubeLinkInput.checkValidity()) {
                 document.getElementById('youtubeLinkError').textContent = 'Por favor, insira um link de YouTube válido.';
                 isValid = false;
@@ -211,7 +287,6 @@ function setupRegistrationFormValidation() {
                 document.getElementById('googleDriveLinkError').textContent = 'Por favor, insira um link de Google Drive válido.';
                 isValid = false;
             }
-
 
             if (goalsInput.value.trim() !== '' && (isNaN(goalsInput.value) || parseInt(goalsInput.value) < 0)) {
                 document.getElementById('goalsError').textContent = 'Gols deve ser um número válido e não negativo.';
@@ -233,18 +308,17 @@ function setupRegistrationFormValidation() {
                     document.getElementById('profilePictureError').textContent = 'Apenas arquivos de imagem (JPG, PNG, GIF) são permitidos.';
                     isValid = false;
                 }
-                if (file.size > 2 * 1024 * 1024) { // 2MB
+                if (file.size > 2 * 1024 * 1024) {
                     document.getElementById('profilePictureError').textContent = 'A imagem deve ter no máximo 2MB.';
                     isValid = false;
                 }
             }
 
-
             if (isValid) {
                 const formData = {
                     fullName: fullNameInput.value,
                     email: emailInput.value,
-                    
+                    position: positionInput.value,
                     preferredFoot: preferredFootInput.value,
                     dateOfBirth: dateOfBirthInput.value,
                     height: heightInput.value,
@@ -266,29 +340,6 @@ function setupRegistrationFormValidation() {
     }
 }
 
-
-function renderStars(containerId, rating) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    container.innerHTML = '';
-
-    const maxStars = 5;
-    for (let i = 1; i <= maxStars; i++) {
-        const star = document.createElement('span');
-        star.classList.add('star');
-        star.innerHTML = '&#9733;';
-
-        if (i <= rating) {
-            star.classList.add('selected');
-        } else {
-            star.classList.add('empty');
-        }
-        container.appendChild(star);
-    }
-}
-
-
 function setupPlayerProfilePage() {
     const playerRatingContainer = document.getElementById('playerRating');
     if (playerRatingContainer) {
@@ -297,11 +348,26 @@ function setupPlayerProfilePage() {
     }
 }
 
+// Nova função para configurar a página Buscar Talentos
+function setupTalentSearchPage() {
+    loadPlayerCards('playerListings'); // Carrega os cards na div com id 'playerListings'
+    // Aqui você adicionaria a lógica de filtragem e busca real
+}
+
 
 function initPageSpecificScripts() {
     setupLoginFormValidation();
     setupRegistrationFormValidation();
     setupPlayerProfilePage();
+    
+    // Verifica se estamos na página de busca de talentos e carrega os cards
+    if (document.querySelector('main.talents-main')) {
+        setupTalentSearchPage();
+    }
+    // Verifica se estamos na seção de jogadoras em destaque na home e carrega os cards
+    if (document.getElementById('available-players')) {
+        loadPlayerCards('available-players-grid'); // Assumindo que você tem um ID para a grid na home
+    }
 }
 
 
