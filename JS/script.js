@@ -1,10 +1,4 @@
-/*
-******************************************************************
-JAVASCRIPT PURO - LÓGICA GLOBAL, DE ROTEAMENTO E PÁGINA ESPECÍFICA
-******************************************************************
-*/
 
-// Função para carregar o conteúdo de uma página dinamicamente
 async function loadPage(url, pushState = true) {
     try {
         const response = await fetch(url);
@@ -20,7 +14,7 @@ async function loadPage(url, pushState = true) {
             const currentMain = document.querySelector('main');
 
             currentMain.classList.remove('content-entering');
-            void currentMain.offsetWidth; // Força reflow
+            void currentMain.offsetWidth; 
             
             currentMain.innerHTML = newMain.innerHTML;
             document.title = newTitle;
@@ -45,7 +39,6 @@ async function loadPage(url, pushState = true) {
     }
 }
 
-// Função para configurar a validação do formulário de login
 function setupLoginFormValidation() {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
@@ -92,7 +85,7 @@ function setupLoginFormValidation() {
     }
 }
 
-// Função para configurar a validação do formulário de cadastro de jogadoras
+
 function setupRegistrationFormValidation() {
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
@@ -118,17 +111,17 @@ function setupRegistrationFormValidation() {
             event.preventDefault();
             let isValid = true;
 
-            // Limpa mensagens de erro anteriores
+
             const errorMessages = document.querySelectorAll('.error-message');
             errorMessages.forEach(el => el.textContent = '');
 
-            // Validação de Nome Completo
+
             if (fullNameInput.value.trim() === '') {
                 document.getElementById('fullNameError').textContent = 'Por favor, digite seu nome completo.';
                 isValid = false;
             }
 
-            // Validação de Email
+
             if (emailInput.value.trim() === '') {
                 document.getElementById('emailError').textContent = 'Por favor, digite seu email.';
                 isValid = false;
@@ -137,7 +130,7 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-            // Validação de Senha
+
             if (passwordInput.value.trim() === '') {
                 document.getElementById('passwordError').textContent = 'Por favor, digite sua senha.';
                 isValid = false;
@@ -146,7 +139,7 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-            // Validação de Confirmação de Senha
+
             if (confirmPasswordInput.value.trim() === '') {
                 document.getElementById('confirmPasswordError').textContent = 'Por favor, confirme sua senha.';
                 isValid = false;
@@ -155,19 +148,19 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-            // Validação de Posição
+
             if (positionInput.value === '') {
                 document.getElementById('positionError').textContent = 'Por favor, selecione sua posição principal.';
                 isValid = false;
             }
 
-            // Validação de Pé Preferencial
+
             if (preferredFootInput.value === '') {
                 document.getElementById('preferredFootError').textContent = 'Por favor, selecione seu pé preferencial.';
                 isValid = false;
             }
 
-            // Validação de Data de Nascimento
+
             if (dateOfBirthInput.value.trim() === '') {
                 document.getElementById('dateOfBirthError').textContent = 'Por favor, digite sua data de nascimento.';
                 isValid = false;
@@ -179,37 +172,37 @@ function setupRegistrationFormValidation() {
                 if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
                     age--;
                 }
-                if (age < 12) { // Exemplo: idade mínima 12 anos
+                if (age < 12) { 
                     document.getElementById('dateOfBirthError').textContent = 'A jogadora deve ter pelo menos 12 anos.';
                     isValid = false;
                 }
             }
 
-            // Validação de Altura
+
             if (heightInput.value.trim() === '' || isNaN(heightInput.value) || parseInt(heightInput.value) < 120) {
                 document.getElementById('heightError').textContent = 'Altura inválida (mín. 120cm).';
                 isValid = false;
             }
 
-            // Validação de Peso
+
             if (weightInput.value.trim() === '' || isNaN(weightInput.value) || parseInt(weightInput.value) < 30) {
                 document.getElementById('weightError').textContent = 'Peso inválido (mín. 30kg).';
                 isValid = false;
             }
             
-            // Validação de Nacionalidade
+
             if (nationalityInput.value.trim() === '') {
                 document.getElementById('nationalityError').textContent = 'Por favor, digite sua nacionalidade.';
                 isValid = false;
             }
 
-            // Validação de Biografia
-            if (bioInput.value.trim().length < 50) { // Mínimo de 50 caracteres
+
+            if (bioInput.value.trim().length < 50) { 
                 document.getElementById('bioError').textContent = 'A biografia deve ter no mínimo 50 caracteres.';
                 isValid = false;
             }
 
-            // Validação de Links de Vídeo (opcional, mas valida formato se preenchido)
+  
             if (youtubeLinkInput.value.trim() !== '' && !youtubeLinkInput.checkValidity()) {
                 document.getElementById('youtubeLinkError').textContent = 'Por favor, insira um link de YouTube válido.';
                 isValid = false;
@@ -219,7 +212,7 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-            // Validação de Estatísticas (opcional, mas valida se é número positivo se preenchido)
+
             if (goalsInput.value.trim() !== '' && (isNaN(goalsInput.value) || parseInt(goalsInput.value) < 0)) {
                 document.getElementById('goalsError').textContent = 'Gols deve ser um número válido e não negativo.';
                 isValid = false;
@@ -233,7 +226,6 @@ function setupRegistrationFormValidation() {
                 isValid = false;
             }
 
-            // Validação de Foto de Perfil (opcional, mas verifica tipo se selecionada)
             if (profilePictureInput.files.length > 0) {
                 const file = profilePictureInput.files[0];
                 const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
@@ -252,8 +244,7 @@ function setupRegistrationFormValidation() {
                 const formData = {
                     fullName: fullNameInput.value,
                     email: emailInput.value,
-                    // password: passwordInput.value, // Em um sistema real, nunca envie a senha em texto puro para o console!
-                    position: positionInput.value,
+                    
                     preferredFoot: preferredFootInput.value,
                     dateOfBirth: dateOfBirthInput.value,
                     height: heightInput.value,
@@ -270,15 +261,12 @@ function setupRegistrationFormValidation() {
                 };
                 console.log('Registro de Jogadora Submetido:', formData);
                 alert(`Cadastro de ${fullNameInput.value} realizado com sucesso! (Dados enviados para o console.)`);
-                // Em um projeto real, aqui você enviaria os dados para o servidor
-                // (incluindo o arquivo da imagem) e redirecionaria o usuário.
-                // registerForm.reset(); // Limpa o formulário após sucesso
             }
         });
     }
 }
 
-// Função para renderizar as estrelas de avaliação (para perfil da jogadora)
+
 function renderStars(containerId, rating) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -300,7 +288,7 @@ function renderStars(containerId, rating) {
     }
 }
 
-// Função para configurar a página de perfil da jogadora
+
 function setupPlayerProfilePage() {
     const playerRatingContainer = document.getElementById('playerRating');
     if (playerRatingContainer) {
@@ -309,7 +297,7 @@ function setupPlayerProfilePage() {
     }
 }
 
-// Função que executa os scripts específicos da página atual
+
 function initPageSpecificScripts() {
     setupLoginFormValidation();
     setupRegistrationFormValidation();
