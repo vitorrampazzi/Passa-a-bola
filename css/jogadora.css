@@ -1,0 +1,232 @@
+ /*
+        ******************************************************************
+        CSS PURO - ESTILOS GLOBAIS E DA PÁGINA DE PERFIL
+        ******************************************************************
+        */
+
+        /* Cores PassaABola - Insira aqui os códigos quando os tivermos! */
+        :root {
+            --primary-color: #007bff; /* Exemplo: Azul vibrante */
+            --secondary-color: #6c757d; /* Exemplo: Cinza neutro */
+            --accent-color: #28a745; /* Exemplo: Verde de destaque */
+            --background-light: #f8f9fa; /* Exemplo: Fundo claro */
+            --text-dark: #343a40; /* Exemplo: Texto escuro */
+            --star-color: #ffc107; /* Amarelo para as estrelas */
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            flex: 1; /* Faz o main ocupar o espaço restante */
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 1fr 2fr; /* Layout de 2 colunas para telas maiores */
+            }
+        }
+
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border-right: 1px solid #eee; /* Separador visual */
+            margin-right: -1px; /* Ajuste para grids */
+        }
+        @media (max-width: 767px) {
+            .profile-sidebar {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 2rem;
+            }
+        }
+
+
+        .profile-content {
+            padding: 1.5rem;
+        }
+
+        /* Card de Informações */
+        .info-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .player-name {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .player-position-age {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background-color: var(--background-light);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .stat-item .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        /* Seção de Vídeos */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Sistema de Recomendação por Estrelas */
+        .star-rating {
+            font-size: 2rem;
+            color: var(--star-color);
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .star-rating .star {
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+            cursor: default; /* Por enquanto, não é clicável */
+        }
+
+        .star-rating .star.selected {
+            color: var(--star-color);
+        }
+        .star-rating .star.empty {
+            color: #ccc; /* Estrelas vazias */
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: auto; /* Garante que o rodapé fique no final da página */
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsividade para seções de vídeo em dispositivos menores */
+        @media (max-width: 767px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }

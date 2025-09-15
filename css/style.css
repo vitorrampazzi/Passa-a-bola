@@ -11,7 +11,6 @@
     --error-color: #CC3300;
 }
 
-/* Base Reset e Global Box-Sizing */
 * {
     margin: 0;
     padding: 0;
@@ -19,7 +18,7 @@
 }
 
 html, body {
-    overflow-x: hidden; /* Impede a barra de rolagem horizontal em caso de overflow */
+    overflow-x: hidden;
 }
 
 body {
@@ -32,7 +31,6 @@ body {
     min-height: 100vh;
 }
 
-/* Header */
 header {
     background-color: var(--header-bg);
     color: white;
@@ -58,9 +56,9 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 25px; /* Usa gap para espaçamento entre itens da navegação */
-    flex-wrap: wrap; /* Permite que os itens da navegação quebrem para a próxima linha */
-    justify-content: center; /* Centraliza os itens quando eles quebram */
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 nav ul li a {
@@ -74,7 +72,6 @@ nav ul li a:hover {
     color: var(--secondary-color);
 }
 
-/* Botões */
 .btn {
     display: inline-block;
     background-color: var(--accent-color);
@@ -109,13 +106,12 @@ nav ul li a:hover {
     font-size: 0.95rem;
 }
 
-/* Seções Gerais */
 .section {
     padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    width: 100%; /* Garante que a seção ocupe a largura total disponível */
+    width: 100%;
 }
 
 .section:nth-child(even) {
@@ -151,7 +147,6 @@ nav ul li a:hover {
     margin-right: auto;
 }
 
-/* Footer */
 footer {
     background-color: var(--header-bg);
     color: white;
@@ -161,7 +156,6 @@ footer {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
 
-/* Animações SPA */
 @keyframes fadeInContent {
     from {
         opacity: 0;
@@ -177,9 +171,8 @@ main.content-entering {
     animation: fadeInContent 0.6s ease-out forwards;
 }
 
-/* Hero Section (Home) */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -206,7 +199,6 @@ main.content-entering {
     text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
-/* Feature Grid (Como o LinkeFut Funciona) */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -241,7 +233,6 @@ main.content-entering {
     margin-bottom: 0;
 }
 
-/* Player Cards Grid (Jogadoras em Destaque) */
 .player-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -307,7 +298,6 @@ main.content-entering {
     padding-top: 1rem;
 }
 
-/* Formulário Geral (Login/Cadastro) */
 .form-container {
     background-color: #fff;
     padding: 3rem 2rem;
@@ -402,7 +392,6 @@ main.content-entering {
     text-align: left;
 }
 
-/* Estilos para Seleção de Tipo de Usuário (Radio Buttons) */
 .user-type-selection {
     margin-bottom: 2.5rem;
 }
@@ -476,37 +465,34 @@ main.content-entering {
     box-shadow: 0 0 0 3px rgba(1, 35, 69, 0.3);
 }
 
-/* Estilos para formulário de cadastro de jogadoras mais largo (large-form) */
 .form-container.large-form {
     max-width: 900px;
     padding: 3.5rem 3rem;
 }
 
-/* Estilos para cada bloco de seção dentro do formulário */
 .form-section-block {
-    background-color: var(--background-light); /* Cor de fundo para o bloco */
+    background-color: var(--background-light);
     padding: 2.5rem;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    margin-bottom: 2.5rem; /* Espaçamento entre os blocos */
+    margin-bottom: 2.5rem;
 }
 
 .form-section-block:last-of-type {
-    margin-bottom: 0; /* Remove margem do último bloco */
+    margin-bottom: 0;
 }
 
 .form-section-block h3 {
-    margin-top: 0; /* Reseta o margin-top padrão do h3 */
-    margin-bottom: 1.5rem; /* Ajusta o margin-bottom do h3 dentro do bloco */
+    margin-top: 0;
+    margin-bottom: 1.5rem;
 }
 
 .form-section-block .form-help-text {
-    margin-top: -1rem; /* Ajusta a posição do texto de ajuda */
-    margin-bottom: 2rem; /* Mais espaçamento abaixo do texto de ajuda */
+    margin-top: -1rem;
+    margin-bottom: 2rem;
 }
 
-/* Estilos para grids de formulário */
 .form-grid-2,
 .form-grid-3 {
     display: grid;
@@ -557,7 +543,6 @@ main.content-entering {
     margin-top: -1rem;
 }
 
-/* Estilos para novos inputs em formulários (select, textarea, file) */
 select {
     width: 100%;
     padding: 0.8rem 1rem;
@@ -611,7 +596,6 @@ input[type="file"]:focus {
     box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
 }
 
-/* Responsividade Geral */
 @media (max-width: 1024px) {
     .player-cards-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -632,7 +616,7 @@ input[type="file"]:focus {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     .form-section-block {
-        padding: 2rem; /* Reduz padding em telas menores */
+        padding: 2rem;
     }
 }
 
@@ -695,8 +679,8 @@ input[type="file"]:focus {
         grid-template-columns: 1fr;
     }
     .form-section-block {
-        padding: 1.5rem; /* Reduz padding ainda mais */
-        margin-bottom: 2rem; /* Espaçamento entre blocos */
+        padding: 1.5rem;
+        margin-bottom: 2rem;
     }
 }
 
@@ -715,6 +699,6 @@ input[type="file"]:focus {
         font-size: 1rem;
     }
     .form-section-block {
-        padding: 1rem; /* Padding mínimo */
+        padding: 1rem;
     }
 }
