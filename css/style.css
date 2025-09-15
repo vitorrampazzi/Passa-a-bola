@@ -172,7 +172,7 @@ main.content-entering {
 }
 
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../img/bc7644bc-4afa-44b0-bccd-e8876bf98d54.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
