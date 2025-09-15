@@ -233,6 +233,7 @@ main.content-entering {
     margin-bottom: 0;
 }
 
+
 .player-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -243,10 +244,6 @@ main.content-entering {
     width: 100%;
 }
 
-.player-cards-grid.full-width-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Garante que se ajuste na página de busca */
-    max-width: 100%; /* Permite que o grid ocupe a largura total do section */
-}
 
 .player-card {
     background-color: white;
@@ -261,11 +258,6 @@ main.content-entering {
     justify-content: space-between;
     width: 100%;
     max-width: 350px;
-}
-
-.player-card:nth-child(4) {
-    grid-column: auto; /* Remove o grid-column para que todos os cards se ajustem */
-    max-width: 100%;
 }
 
 .player-card:hover {
@@ -302,6 +294,17 @@ main.content-entering {
     gap: 0.8rem;
     padding-top: 1rem;
 }
+
+
+.home-featured-players-grid {
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+.home-featured-players-grid .player-card:nth-child(4) {
+    grid-column: auto; 
+    margin: 0 auto;
+}
+
 
 .form-container {
     background-color: #fff;
@@ -601,7 +604,6 @@ input[type="file"]:focus {
     box-shadow: 0 0 0 0.2rem rgba(1, 35, 69, 0.25);
 }
 
-/* Estilos para a barra de busca e filtro na página Buscar Talentos */
 .search-filter-bar {
     display: flex;
     flex-wrap: wrap;
@@ -621,9 +623,9 @@ input[type="file"]:focus {
     border: 1px solid var(--input-border);
     border-radius: 6px;
     font-size: 1rem;
-    flex: 1; /* Permite que os itens cresçam */
-    min-width: 180px; /* Largura mínima para cada campo */
-    max-width: 250px; /* Largura máxima para cada campo */
+    flex: 1;
+    min-width: 180px;
+    max-width: 250px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -645,20 +647,18 @@ input[type="file"]:focus {
 }
 
 .search-filter-bar button {
-    flex-shrink: 0; /* Impede que o botão encolha */
+    flex-shrink: 0;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     min-width: 150px;
 }
 
-
 @media (max-width: 1024px) {
     .player-cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .player-card:nth-child(4) {
-        grid-column: auto;
-        max-width: 100%;
+    .home-featured-players-grid {
+        grid-template-columns: repeat(2, 1fr); 
     }
 
     .form-container.large-form {
@@ -677,7 +677,7 @@ input[type="file"]:focus {
     .search-filter-bar input,
     .search-filter-bar select,
     .search-filter-bar button {
-        max-width: 100%; /* Permite que os itens ocupem a largura total */
+        max-width: 100%;
     }
 }
 
@@ -719,11 +719,10 @@ input[type="file"]:focus {
     }
 
     .player-cards-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; 
     }
-    .player-card:nth-child(4) {
-        grid-column: auto;
-        max-width: 100%;
+    .home-featured-players-grid {
+        grid-template-columns: 1fr;
     }
 
     .form-container {
