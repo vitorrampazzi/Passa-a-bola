@@ -23,9 +23,13 @@ const playerCurrentRating = 4.5;
 
 function loadPlayerCards(containerId) {
     const container = document.getElementById(containerId);
-    if (!container) return;
+    if (!container) {
+        console.warn(`[loadPlayerCards] Contêiner com ID '${containerId}' não encontrado.`);
+        return;
+    }
 
-    // Dados fictícios de jogadoras para demonstração
+    console.log(`[loadPlayerCards] Carregando cards para o contêiner: '${containerId}'`);
+
     const players = [
         {
             name: "Maria Silva",
@@ -71,27 +75,47 @@ function loadPlayerCards(containerId) {
         },
     ];
 
-    container.innerHTML = ''; // Limpa qualquer conteúdo existente
+    container.innerHTML = '';
 
-    players.forEach(player => {
+    players.forEach((player, index) => {
         const card = document.createElement('div');
         card.classList.add('player-card');
 
+        const imgElement = new Image();
+        imgElement.src = player.photo;
+        imgElement.alt = `Foto de ${player.name}`;
+        imgElement.classList.add('player-card-photo');
+        imgElement.onerror = () => {
+            console.error(`[loadPlayerCards] ERRO: Imagem para ${player.name} (${player.photo}) não encontrada!`);
+            // imgElement.src = 'img/placeholder.jpg'; // Opcional: usar uma imagem de placeholder
+        };
+        imgElement.onload = () => {
+            console.log(`[loadPlayerCards] Imagem para ${player.name} (${player.photo}) carregada com sucesso.`);
+        };
+
+
         card.innerHTML = `
-            <img src="${player.photo}" alt="Foto de ${player.name}" class="player-card-photo">
             <h3>${player.name}</h3>
             <p class="player-card-position">${player.position} - ${player.age} anos</p>
             <div class="player-card-actions">
                 <a href="${player.profileLink}" class="btn btn-small btn-secondary">Ver Perfil</a>
             </div>
         `;
+        card.prepend(imgElement);
+
         container.appendChild(card);
+        console.log(`[loadPlayerCards] Card da jogadora ${player.name} (Índice: ${index}) adicionado.`);
     });
+    console.log(`[loadPlayerCards] Finalizou o carregamento de ${players.length} cards.`);
 }
 
 async function loadPage(url, pushState = true) {
+    console.log(`[loadPage] Tentando carregar: ${url}`);
     try {
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const html = await response.text();
 
         const parser = new DOMParser();
@@ -102,29 +126,35 @@ async function loadPage(url, pushState = true) {
 
         if (newMain) {
             const currentMain = document.querySelector('main');
-
-            currentMain.classList.remove('content-entering');
-            void currentMain.offsetWidth;
-            
-            currentMain.innerHTML = newMain.innerHTML;
-            document.title = newTitle;
-            
-            currentMain.classList.add('content-entering');
+            if (currentMain) {
+                currentMain.classList.remove('content-entering');
+                void currentMain.offsetWidth;
+                
+                currentMain.innerHTML = newMain.innerHTML;
+                document.title = newTitle;
+                
+                currentMain.classList.add('content-entering');
+            } else {
+                console.error('[loadPage] Elemento <main> atual não encontrado no DOM! Recarregando página completa.');
+                window.location.href = url;
+                return;
+            }
 
             if (pushState) {
                 history.pushState({ path: url }, newTitle, url);
             }
 
+            console.log(`[loadPage] Página '${url}' carregada e DOM atualizado. Inicializando scripts específicos...`);
             initPageSpecificScripts();
             window.scrollTo(0, 0);
 
         } else {
-            console.error('Conteúdo <main> não encontrado na página carregada:', url);
+            console.error('[loadPage] Conteúdo <main> não encontrado na página carregada por AJAX. Recarregando página completa.');
             window.location.href = url;
         }
 
     } catch (error) {
-        console.error('Erro ao carregar a página:', error);
+        console.error('[loadPage] Erro ao carregar a página via AJAX. Recarregando página completa:', error);
         window.location.href = url;
     }
 }
@@ -132,6 +162,7 @@ async function loadPage(url, pushState = true) {
 function setupLoginFormValidation() {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
+        console.log('[setupLoginFormValidation] Formulário de Login encontrado.');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const emailError = document.getElementById('emailError');
@@ -178,6 +209,7 @@ function setupLoginFormValidation() {
 function setupRegistrationFormValidation() {
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
+        console.log('[setupRegistrationFormValidation] Formulário de Registro de Jogadora encontrado.');
         const fullNameInput = document.getElementById('fullName');
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
@@ -343,35 +375,44 @@ function setupRegistrationFormValidation() {
 function setupPlayerProfilePage() {
     const playerRatingContainer = document.getElementById('playerRating');
     if (playerRatingContainer) {
+        console.log('[setupPlayerProfilePage] Contêiner de avaliação de jogador encontrado.');
         const playerCurrentRating = 4.5;
         renderStars('playerRating', playerCurrentRating);
     }
 }
 
-// Nova função para configurar a página Buscar Talentos
 function setupTalentSearchPage() {
-    loadPlayerCards('playerListings'); // Carrega os cards na div com id 'playerListings'
-    // Aqui você adicionaria a lógica de filtragem e busca real
+    const playerListings = document.getElementById('playerListings');
+    if (playerListings) {
+        console.log('[setupTalentSearchPage] Contêiner de listagem de jogadoras (playerListings) encontrado. Carregando cards...');
+        loadPlayerCards('playerListings');
+    } else {
+        console.warn('[setupTalentSearchPage] Contêiner de listagem de jogadoras (playerListings) NÃO encontrado.');
+    }
 }
 
 
 function initPageSpecificScripts() {
+    console.log('[initPageSpecificScripts] Inicializando scripts para a página atual.');
     setupLoginFormValidation();
     setupRegistrationFormValidation();
     setupPlayerProfilePage();
     
-    // Verifica se estamos na página de busca de talentos e carrega os cards
     if (document.querySelector('main.talents-main')) {
+        console.log('[initPageSpecificScripts] Página é "Buscar Talentos".');
         setupTalentSearchPage();
     }
-    // Verifica se estamos na seção de jogadoras em destaque na home e carrega os cards
-    if (document.getElementById('available-players')) {
-        loadPlayerCards('available-players-grid'); // Assumindo que você tem um ID para a grid na home
+    const featuredGrid = document.getElementById('available-players-grid');
+    if (featuredGrid) {
+        console.log('[initPageSpecificScripts] Seção "Jogadoras em Destaque" na Home encontrada. Carregando cards...');
+        loadPlayerCards('available-players-grid');
     }
 }
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('[DOMContentLoaded] DOM completamente carregado. Configurando listeners globais e scripts iniciais.');
+
     document.body.addEventListener('click', event => {
         const { target } = event;
         if (target.tagName === 'A' &&
@@ -403,6 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     window.addEventListener('popstate', event => {
+        console.log('[popstate] Evento popstate disparado. Carregando estado anterior do histórico.');
         if (event.state && event.state.path) {
             loadPage(event.state.path, false);
         } else {
