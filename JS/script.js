@@ -46,7 +46,7 @@ function loadPlayerCards(containerId) {
             profileLink: "perfil_jogadora.html?id=maria-silva"
         },
         {
-            name: "Ana Santos",
+            name: "Ana Carolina Silva",
             position: "Meio-Campo",
             age: 22,
             photo: "../img/mulher2.jpg",
@@ -99,7 +99,7 @@ function loadPlayerCards(containerId) {
             <h3>${player.name}</h3>
             <p class="player-card-position">${player.position} - ${player.age} anos</p>
             <div class="player-card-actions">
-                <a href="${player.profileLink}" class="btn btn-small btn-secondary">Ver Perfil</a>
+                <a href="./jogadora.html" class="btn btn-small btn-secondary">Ver Perfil</a>
             </div>
         `;
         card.prepend(imgElement);
