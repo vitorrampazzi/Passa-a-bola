@@ -63,21 +63,21 @@ function loadPlayerCards(containerId) {
             name: "Carla Oliveira",
             position: "Goleira",
             age: 25,
-            photo: "../img/mulher3.jpg",
+            photo: "../img/mulher4.jpg",
             profileLink: "perfil_jogadora.html?id=carla-oliveira"
         },
         {
             name: "Daniela Pereira",
             position: "Lateral Esquerda",
             age: 21,
-            photo: "../img/mulher2.jpg",
+            photo: "../img/mulher5.jpeg",
             profileLink: "perfil_jogadora.html?id=daniela-pereira"
         },
         {
             name: "Fernanda Lima",
             position: "Atacante",
             age: 18,
-            photo: "../img/mulher1.jpg",
+            photo: "../img/mulher6.jpeg",
             profileLink: "perfil_jogadora.html?id=fernanda-lima"
         },
     ];

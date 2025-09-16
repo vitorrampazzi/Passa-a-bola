@@ -679,6 +679,11 @@ input[type="file"]:focus {
     min-width: 150px;
 }
 
+.buscar-talentos{
+    margin-top: 3.7rem;
+    font-size: 1.1rem;
+}
+
 @media (max-width: 1024px) {
     .player-cards-grid {
         grid-template-columns: repeat(2, 1fr);
