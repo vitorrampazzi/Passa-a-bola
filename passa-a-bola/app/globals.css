@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * COLE TODO O SEU STYLE.CSS AQUI
- */
 :root {
     --primary-color: #663399; 
     --secondary-color: #E91E63; 
@@ -690,11 +688,10 @@ input[type="file"]:focus {
     font-size: 1.1rem;
 }
 
-/* --- Novos estilos para o perfil da jogadora Anna Carolina --- */
 
 .player-profile-section {
-    padding-top: calc(var(--header-height) + 2rem); /* Ajusta para o cabeçalho fixo */
-    text-align: left; /* O conteúdo do perfil geralmente é alinhado à esquerda */
+    padding-top: calc(var(--header-height) + 2rem); 
+    text-align: left; 
 }
 
 .player-profile-container {
@@ -705,7 +702,7 @@ input[type="file"]:focus {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    max-width: 900px; /* Largura máxima para o container do perfil */
+    max-width: 900px; 
     margin: 0 auto;
 }
 
@@ -750,9 +747,8 @@ input[type="file"]:focus {
     margin-top: 1rem;
 }
 
-/* Reutilizando estilos de botões existentes */
 .player-profile-actions .btn {
-    margin: 0; /* Remove margem padrão do btn para gerenciar com gap */
+    margin: 0; 
 }
 
 .player-profile-details {
@@ -766,7 +762,7 @@ input[type="file"]:focus {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--accent-color); /* Um toque de cor */
+    border-left: 5px solid var(--accent-color); 
 }
 
 .details-block h3 {
@@ -805,8 +801,8 @@ input[type="file"]:focus {
     font-size: 1.1rem;
     color: var(--text-dark);
     line-height: 1.7;
-    text-align: left; /* Garante que o texto fique alinhado à esquerda */
-    margin-bottom: 0; /* Remove margem padrão de .section p */
+    text-align: left; 
+    margin-bottom: 0; 
 }
 
 .stats-grid {
@@ -844,7 +840,7 @@ input[type="file"]:focus {
 
 .social-media-block .social-links {
     display: flex;
-    justify-content: center; /* Centraliza os ícones */
+    justify-content: center; 
     gap: 1.5rem;
     margin-top: 1.5rem;
     margin-bottom: 2rem;
@@ -869,7 +865,7 @@ input[type="file"]:focus {
     transform: translateY(-3px);
 }
 
-/* --- Media Queries para responsividade do perfil --- */
+
 
 @media (max-width: 1024px) {
     .player-profile-container {
@@ -880,13 +876,13 @@ input[type="file"]:focus {
 
 @media (max-width: 768px) {
     .player-profile-section {
-        padding-top: calc(var(--header-height) + 1rem); /* Ajuste para header menor */
+        padding-top: calc(var(--header-height) + 1rem);
     }
     .player-profile-container {
         padding: 2rem;
         border-radius: 10px;
         gap: 2rem;
-        max-width: 95%; /* Ocupa mais largura em telas menores */
+        max-width: 95%; 
     }
     .player-profile-header {
         padding-bottom: 1.5rem;
@@ -906,11 +902,11 @@ input[type="file"]:focus {
         margin-bottom: 1rem;
     }
     .player-profile-actions {
-        flex-direction: column; /* Botões empilhados em telas menores */
+        flex-direction: column; 
         gap: 0.8rem;
     }
     .player-profile-actions .btn {
-        width: 100%; /* Botões ocupam 100% da largura */
+        width: 100%; 
     }
     .details-block {
         padding: 1.5rem;
@@ -921,7 +917,7 @@ input[type="file"]:focus {
         margin-bottom: 1rem;
     }
     .info-grid {
-        grid-template-columns: 1fr; /* Itens da grade empilhados */
+        grid-template-columns: 1fr; 
         gap: 1rem;
     }
     .stat-item .stat-value {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PlayerList from "./components/PlayerList"; 
+import PlayerList from "./components/PlayerList";
 
 export default function Home() {
   return (
@@ -49,7 +49,7 @@ export default function Home() {
       <section id="available-players" className="section">
         <h2>Jogadoras em Destaque</h2>
         <p>Conheça algumas das jogadoras que já estão no Passa a Bola.</p>
-        
+          
         <PlayerList limit={3} />
 
         <Link
