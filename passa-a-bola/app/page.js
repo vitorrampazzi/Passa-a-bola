@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PlayerList from "./components/PlayerList"; // Vamos criar este componente
+import PlayerList from "./components/PlayerList"; 
 
 export default function Home() {
   return (
