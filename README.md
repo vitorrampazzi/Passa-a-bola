@@ -83,7 +83,6 @@ Siga os passos abaixo para executar o projeto na sua máquina.
 
 ## 📸 Screenshots
 
-*(Você pode adicionar suas próprias imagens aqui!)*
 
 **Desktop**
 ![Página Home do Passa a Bola no Desktop](url-para-sua-imagem-home-desktop.png)
