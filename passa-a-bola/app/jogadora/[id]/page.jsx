@@ -62,9 +62,6 @@ export default function JogadoraDinamicaPage() {
                 >
                   Entrar em Contato
                 </button>
-                <a href="#" className="btn btn-small">
-                  Ver Highlights
-                </a>
               </div>
             </div>
           </div>
