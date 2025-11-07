@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 
 export default function JogadoraDinamicaPage() {
   const { id } = useParams();
   const [player, setPlayer] = useState(null);
+  const contactRef = useRef(null);
 
   useEffect(() => {
     if (id) {
@@ -18,6 +19,15 @@ export default function JogadoraDinamicaPage() {
         });
     }
   }, [id]);
+
+  const handleScrollToContact = () => {
+    if (contactRef.current) {
+      contactRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   if (!player) {
     return (
@@ -45,9 +55,13 @@ export default function JogadoraDinamicaPage() {
               <h1>{player.name}</h1>
               <p className="player-position">{player.position}</p>
               <div className="player-profile-actions">
-                <a href="#" className="btn btn-secondary btn-small">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-small"
+                  onClick={handleScrollToContact}
+                >
                   Entrar em Contato
-                </a>
+                </button>
                 <a href="#" className="btn btn-small">
                   Ver Highlights
                 </a>
@@ -115,14 +129,17 @@ export default function JogadoraDinamicaPage() {
               <p>{player.bio}</p>
             </div>
 
-            <div className="details-block social-media-block">
+            <div
+              className="details-block social-media-block"
+              ref={contactRef}
+            >
               <h3>Contato e Redes Sociais</h3>
               <div className="social-links">
                 <a href="#" className="social-icon facebook" aria-label="Facebook">
                   <i className="fab fa-facebook-f"></i>
                 </a>
                 <a href="#" className="social-icon instagram" aria-label="Instagram">
-                  <i className="fab fa.fa-instagram"></i>
+                  <i className="fab fa-instagram"></i>
                 </a>
                 <a href="#" className="social-icon twitter" aria-label="Twitter">
                   <i className="fab fa-twitter"></i>
