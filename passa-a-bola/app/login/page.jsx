@@ -108,8 +108,6 @@ export default function LoginPage() {
         </form>
 
         <div className="form-links">
-          <Link href="#">Esqueceu a senha?</Link>
-          <span>|</span>
           <Link href="/cadastrar-jogadora">Criar uma conta</Link>
         </div>
       </div>

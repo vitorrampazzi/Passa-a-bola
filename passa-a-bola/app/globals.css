@@ -1042,3 +1042,10 @@ input[type="file"]:focus {
     transform: rotate(-45deg) translate(7px, -7px);
   }
 }
+
+@media (max-width: 768px) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
