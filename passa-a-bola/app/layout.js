@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./globals.css";
-import Header from "./components/Header.jsx"; 
+import Header from "./components/Header.js"; 
 
 export const metadata = {
   title: "Passa a Bola - Conectando Talentos",

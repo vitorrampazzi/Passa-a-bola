@@ -1,11 +1,10 @@
-// "use client" é obrigatório, pois vamos usar "useState" para gerenciar o formulário
+
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 
-// --- Helper Function ---
-// Colamos a função 'calculateAge' do seu script.js aqui
+
 function calculateAge(dobString) {
   if (!dobString) return null;
   const dob = new Date(dobString);
@@ -18,10 +17,8 @@ function calculateAge(dobString) {
   return age;
 }
 
-// --- O Componente da Página ---
+
 export default function RegisterPlayerPage() {
-  // 1. STATE MANAGEMENT
-  // Usamos um objeto 'useState' para guardar TODOS os dados do formulário
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -41,17 +38,12 @@ export default function RegisterPlayerPage() {
     games: "",
   });
 
-  // Estado separado para o arquivo da foto
   const [profilePicture, setProfilePicture] = useState(null);
 
-  // Estado para a idade calculada (só para exibição)
   const [calculatedAge, setCalculatedAge] = useState("");
 
-  // Um único objeto de estado para TODAS as mensagens de erro
   const [errors, setErrors] = useState({});
 
-  // 2. EVENT HANDLERS
-  // Esta função atualiza o 'formData' para qualquer input de texto, número, etc.
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -60,7 +52,7 @@ export default function RegisterPlayerPage() {
     }));
   };
 
-  // Função especial para o input de data, para podermos calcular a idade
+
   const handleDateChange = (e) => {
     const { value } = e.target;
     setFormData((prevData) => ({ ...prevData, dateOfBirth: value }));
@@ -68,13 +60,12 @@ export default function RegisterPlayerPage() {
     const age = calculateAge(value);
     if (age !== null && !isNaN(age) && age >= 0) {
       setCalculatedAge(`Idade: ${age} anos`);
-      setErrors((prevErrors) => ({ ...prevErrors, dateOfBirth: "" })); // Limpa o erro
+      setErrors((prevErrors) => ({ ...prevErrors, dateOfBirth: "" })); 
     } else {
       setCalculatedAge("");
     }
   };
 
-  // Função especial para o input de arquivo
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setProfilePicture(e.target.files[0]);
@@ -83,13 +74,11 @@ export default function RegisterPlayerPage() {
     }
   };
 
-  // 3. SUBMIT HANDLER (Lógica de Validação)
-  // Esta é a sua função 'setupRegistrationFormValidation' convertida para React
   const handleSubmit = (e) => {
-    e.preventDefault(); // Previne o recarregamento da página
+    e.preventDefault(); 
 
     let isValid = true;
-    const newErrors = {}; // Objeto temporário para os novos erros
+    const newErrors = {}; 
     const {
       fullName,
       email,
@@ -108,7 +97,6 @@ export default function RegisterPlayerPage() {
       games,
     } = formData;
 
-    // --- Início da Lógica de Validação (portada do seu script.js) ---
     if (fullName.trim() === "") {
       newErrors.fullName = "Por favor, digite seu nome completo.";
       isValid = false;
@@ -177,7 +165,6 @@ export default function RegisterPlayerPage() {
       isValid = false;
     }
 
-    // Validação de links (simplificada, ajuste conforme necessário)
     if (
       googleDriveLink.trim() !== "" &&
       !googleDriveLink.startsWith("https://drive.google.com")
@@ -186,7 +173,6 @@ export default function RegisterPlayerPage() {
       isValid = false;
     }
     
-    // Validação de estatísticas (só checa se não é negativo)
     if (goals.trim() !== "" && (isNaN(goals) || parseInt(goals) < 0)) {
         newErrors.goals = "Gols deve ser um número válido e não negativo.";
         isValid = false;
@@ -200,7 +186,7 @@ export default function RegisterPlayerPage() {
         isValid = false;
     }
 
-    // Validação da foto
+
     if (profilePicture) {
       const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
       if (!allowedTypes.includes(profilePicture.type)) {
@@ -212,12 +198,9 @@ export default function RegisterPlayerPage() {
         isValid = false;
       }
     }
-    // --- Fim da Lógica de Validação ---
 
-    // Atualiza o estado de erros de uma só vez
     setErrors(newErrors);
 
-    // Se for válido, "envia" o formulário
     if (isValid) {
       console.log("Registro de Jogadora Submetido:", {
         ...formData,
@@ -226,37 +209,30 @@ export default function RegisterPlayerPage() {
       alert(
         `Cadastro de ${formData.fullName} realizado com sucesso! (Dados enviados para o console.)`
       );
-      // Aqui você faria a chamada para a API para salvar os dados
     } else {
         console.log("Formulário inválido, verifique os erros:", newErrors);
     }
   };
 
-  // 4. O JSX (HTML CONVERTIDO)
-  // O <main> do seu cadastrar_jogadora.html
   return (
     <main className="register-main">
       <div className="form-container large-form">
         <h2>Crie seu perfil de Jogadora no Passa a Bola</h2>
         
-        {/* Usamos 'onSubmit' no formulário e 'noValidate' para desligar a validação do HTML */}
         <form id="registerForm" onSubmit={handleSubmit} noValidate>
-          {/* --- Informações de Acesso --- */}
           <div className="form-section-block">
             <h3>Informações de Acesso</h3>
             <div className="form-group">
-              {/* 'htmlFor' substitui 'for' */}
               <label htmlFor="fullName">Nome Completo:</label>
               <input
                 type="text"
                 id="fullName"
-                name="fullName" // 'name' é crucial para o 'handleChange'
+                name="fullName" 
                 placeholder="Seu nome completo"
-                value={formData.fullName} // Conecta o input ao 'state'
-                onChange={handleChange} // Conecta a digitação ao 'state'
+                value={formData.fullName} 
+                onChange={handleChange}
                 required
               />
-              {/* Exibição condicional do erro */}
               {errors.fullName && <span className="error-message">{errors.fullName}</span>}
             </div>
 
@@ -304,7 +280,6 @@ export default function RegisterPlayerPage() {
             </div>
           </div>
 
-          {/* --- Dados Pessoais e Físicos --- */}
           <div className="form-section-block">
             <h3>Dados Pessoais e Físicos</h3>
             <div className="form-grid-3">
@@ -315,10 +290,9 @@ export default function RegisterPlayerPage() {
                   id="dateOfBirth"
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
-                  onChange={handleDateChange} // Usa o handler especial
+                  onChange={handleDateChange}
                   required
                 />
-                {/* Exibe a idade calculada */}
                 {calculatedAge && <span className="calculated-age">{calculatedAge}</span>}
                 {errors.dateOfBirth && <span className="error-message">{errors.dateOfBirth}</span>}
               </div>
@@ -437,7 +411,6 @@ export default function RegisterPlayerPage() {
             </div>
           </div>
 
-          {/* --- Vídeos de Destaque --- */}
           <div className="form-section-block">
             <h3>Vídeos de Destaque</h3>
             <p className="form-help-text">
@@ -461,7 +434,6 @@ export default function RegisterPlayerPage() {
             </div>
           </div>
 
-          {/* --- Estatísticas Principais --- */}
           <div className="form-section-block">
             <h3>Estatísticas Principais</h3>
             <p className="form-help-text">Seja honesta sobre seus números!</p>
@@ -508,7 +480,6 @@ export default function RegisterPlayerPage() {
             </div>
           </div>
 
-          {/* --- Foto de Perfil --- */}
           <div className="form-section-block">
             <h3>Foto de Perfil</h3>
             <div className="form-group">
@@ -518,13 +489,12 @@ export default function RegisterPlayerPage() {
                 id="profilePicture"
                 name="profilePicture"
                 accept="image/*"
-                onChange={handleFileChange} // Handler especial de arquivo
+                onChange={handleFileChange}
               />
               {errors.profilePicture && <span className="error-message">{errors.profilePicture}</span>}
             </div>
           </div>
 
-          {/* --- Ações --- */}
           <div className="form-actions">
             <button type="submit" className="btn btn-secondary">
               Criar Perfil
@@ -534,7 +504,6 @@ export default function RegisterPlayerPage() {
 
         <div className="form-links">
           <span>Já tem uma conta?</span>
-          {/* O '<Link>' substitui o '<a>' para navegação interna */}
           <Link href="/login">Faça login</Link>
         </div>
       </div>
