@@ -1,24 +1,14 @@
-"use client"; // Necessário para os filtros (useState)
+"use client";
 
 import { useState } from "react";
-import PlayerList from "../components/PlayerList"; // Importe sua lista de jogadoras
+import PlayerList from "../components/PlayerList";
 
 export default function BuscarTalentosPage() {
-  // Estados para controlar os filtros
-  // (A lógica de filtragem real precisaria ser adicionada ao PlayerList,
-  // mas por enquanto, os filtros são apenas visuais e controlados)
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPosition, setFilterPosition] = useState("");
   const [filterAge, setFilterAge] = useState("");
 
-  const handleFilter = () => {
-    // Lógica para aplicar os filtros (ex:
-    // console.log(searchTerm, filterPosition, filterAge)
-    alert("Lógica de filtragem ainda não implementada.");
-  };
-
   return (
-    // Conteúdo do <main> do seu 'buscar_talentos.html'
     <main className="talents-main">
       <section className="section">
         <h2 className="buscar-talentos">Buscar Talentos</h2>
@@ -27,12 +17,11 @@ export default function BuscarTalentosPage() {
           para o seu time.
         </p>
 
-        {/* --- Barra de Filtros --- */}
         <div className="search-filter-bar">
           <input
             type="text"
             id="searchPlayer"
-            placeholder="Buscar por nome, posição, clube..."
+            placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -42,11 +31,12 @@ export default function BuscarTalentosPage() {
             onChange={(e) => setFilterPosition(e.target.value)}
           >
             <option value="">Todas as Posições</option>
-            <option value="Goleira">Goleira</option>
-            <option value="Zagueira">Zagueira</option>
-            <option value="Lateral">Lateral</option>
-            <option value="Meio-Campo">Meio-Campo</option>
             <option value="Atacante">Atacante</option>
+            <option value="Atacante (Ponta)">Atacante (Ponta)</option>
+            <option value="Meio-Campo (Volante)">Meio-Campo (Volante)</option>
+            <option value="Zagueira">Zagueira</option>
+            <option value="Lateral Esquerda">Lateral Esquerda</option>
+            <option value="Goleira">Goleira</option>
           </select>
           <select
             id="filterAge"
@@ -54,24 +44,19 @@ export default function BuscarTalentosPage() {
             onChange={(e) => setFilterAge(e.target.value)}
           >
             <option value="">Todas as Idades</option>
-            <option value="U17">Sub-17</option>
-            <option value="U20">Sub-20</option>
-            <option value="Senior">Sênior</option>
+            <option value="U23">Sub-23 (até 23 anos)</option>
+            <option value="24+">24+ anos</option>
           </select>
-          <button
-            className="btn btn-small btn-secondary"
-            onClick={handleFilter}
-          >
-            Aplicar Filtros
-          </button>
         </div>
 
-        {/* --- Lista de Jogadoras ---
-          Reutilizamos o componente, mas desta vez:
-          1. Sem a prop 'limit', para mostrar todas as jogadoras.
-          2. Passando a classe correta para a grid.
-        */}
-        <PlayerList gridClassName="player-cards-grid full-width-grid" />
+        <PlayerList
+          gridClassName="player-cards-grid full-width-grid"
+          filters={{
+            name: searchTerm,
+            position: filterPosition,
+            age: filterAge,
+          }}
+        />
       </section>
     </main>
   );

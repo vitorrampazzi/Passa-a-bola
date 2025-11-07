@@ -1,27 +1,49 @@
-// Esta página é (principalmente) estática, mas usaremos 'Image' do Next.js
+"use client";
+
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 
-export default function JogadoraPage() {
+export default function JogadoraDinamicaPage() {
+  const { id } = useParams();
+  const [player, setPlayer] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      fetch('/api/jogadoras.json')
+        .then((res) => res.json())
+        .then((data) => {
+          const foundPlayer = data.find((p) => p.id === id);
+          setPlayer(foundPlayer);
+        });
+    }
+  }, [id]);
+
+  if (!player) {
+    return (
+      <main className="content-entering">
+        <section className="section player-profile-section">
+          <p>Carregando perfil da jogadora...</p>
+        </section>
+      </main>
+    );
+  }
+
   return (
-    // Conteúdo do <main> do seu 'jogadora.html'
-    // Lembre-se: 'class' vira 'className'
     <main className="content-entering">
       <section className="section player-profile-section">
         <div className="player-profile-container">
           <div className="player-profile-header">
-            {/* O 'img' normal vira 'Image' do Next.js.
-              Lembre-se que 'mulher2.jpg' deve estar em 'public/img/mulher2.jpg'
-            */}
             <Image
-              src="/img/mulher2.jpg"
-              alt="Foto de Anna Carolina"
+              src={player.photo}
+              alt={`Foto de ${player.name}`}
               className="player-profile-image"
               width={180}
               height={180}
             />
             <div className="player-header-info">
-              <h1>Anna Carolina</h1>
-              <p className="player-position">Meio-campo (Volante)</p>
+              <h1>{player.name}</h1>
+              <p className="player-position">{player.position}</p>
               <div className="player-profile-actions">
                 <a href="#" className="btn btn-secondary btn-small">
                   Entrar em Contato
@@ -38,22 +60,22 @@ export default function JogadoraPage() {
               <h3>Informações Pessoais</h3>
               <div className="info-grid">
                 <div className="info-item">
-                  <span>Nascimento:</span> <span>01/01/2000</span>
+                  <span>Nascimento:</span> <span>{player.info.nascimento}</span>
                 </div>
                 <div className="info-item">
-                  <span>Idade:</span> <span>24 anos</span>
+                  <span>Idade:</span> <span>{player.info.idade} anos</span>
                 </div>
                 <div className="info-item">
-                  <span>Nacionalidade:</span> <span>Brasileira</span>
+                  <span>Nacionalidade:</span> <span>{player.info.nacionalidade}</span>
                 </div>
                 <div className="info-item">
-                  <span>Altura:</span> <span>1.70m</span>
+                  <span>Altura:</span> <span>{player.info.altura}</span>
                 </div>
                 <div className="info-item">
-                  <span>Peso:</span> <span>65kg</span>
+                  <span>Peso:</span> <span>{player.info.peso}kg</span>
                 </div>
                 <div className="info-item">
-                  <span>Pé Preferencial:</span> <span>Direito</span>
+                  <span>Pé Preferencial:</span> <span>{player.info.pe}</span>
                 </div>
               </div>
             </div>
@@ -62,27 +84,27 @@ export default function JogadoraPage() {
               <h3>Estatísticas de Carreira</h3>
               <div className="stats-grid">
                 <div className="stat-item">
-                  <span className="stat-value">120</span>
+                  <span className="stat-value">{player.stats.jogos}</span>
                   <span className="stat-label">Jogos</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-value">30</span>
+                  <span className="stat-value">{player.stats.gols}</span>
                   <span className="stat-label">Gols</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-value">45</span>
+                  <span className="stat-value">{player.stats.assistencias}</span>
                   <span className="stat-label">Assistências</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-value">15</span>
+                  <span className="stat-value">{player.stats.amarelos}</span>
                   <span className="stat-label">Cartões Amarelos</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-value">5</span>
+                  <span className="stat-value">{player.stats.vermelhos}</span>
                   <span className="stat-label">Cartões Vermelhos</span>
                 </div>
                 <div className="stat-item">
-                  <span className="stat-value">85%</span>
+                  <span className="stat-value">{player.stats.passes}</span>
                   <span className="stat-label">Acerto Passes</span>
                 </div>
               </div>
@@ -90,53 +112,27 @@ export default function JogadoraPage() {
 
             <div className="details-block description-block">
               <h3>Sobre a Jogadora</h3>
-              <p>
-                Anna Carolina é uma meio-campista versátil e com excelente visão
-                de jogo. Capaz de atuar tanto na proteção da defesa quanto na
-                criação de jogadas ofensivas, destaca-se pela sua técnica
-                apurada, passes precisos e forte marcação. Sua liderança em
-                campo e dedicação nos treinos a tornam uma peça fundamental em
-                qualquer equipe.
-              </p>
+              <p>{player.bio}</p>
             </div>
 
             <div className="details-block social-media-block">
               <h3>Contato e Redes Sociais</h3>
               <div className="social-links">
-                {/* Estes ícones 'i' vão funcionar por causa do 
-                  link que adicionamos no 'layout.jsx'
-                */}
-                <a
-                  href="#"
-                  className="social-icon facebook"
-                  aria-label="Facebook"
-                >
+                <a href="#" className="social-icon facebook" aria-label="Facebook">
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a
-                  href="#"
-                  className="social-icon instagram"
-                  aria-label="Instagram"
-                >
-                  <i className="fab fa-instagram"></i>
+                <a href="#" className="social-icon instagram" aria-label="Instagram">
+                  <i className="fab fa.fa-instagram"></i>
                 </a>
-                <a
-                  href="#"
-                  className="social-icon twitter"
-                  aria-label="Twitter"
-                >
+                <a href="#" className="social-icon twitter" aria-label="Twitter">
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a
-                  href="#"
-                  className="social-icon linkedin"
-                  aria-label="LinkedIn"
-                >
+                <a href="#" className="social-icon linkedin" aria-label="LinkedIn">
                   <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
-              <p>Email: annacarolina@example.com</p>
-              <p>Telefone: +55 (XX) XXXXX-XXXX</p>
+              <p>Email: {player.contact.email}</p>
+              <p>Telefone: {player.contact.phone}</p>
             </div>
           </div>
         </div>

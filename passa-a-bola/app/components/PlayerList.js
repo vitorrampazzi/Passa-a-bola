@@ -2,31 +2,67 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-export default function PlayerList({ limit, gridClassName }) {
-  const [players, setPlayers] = useState([]);
+export default function PlayerList({ limit, gridClassName, filters }) {
+  const [allPlayers, setAllPlayers] = useState([]);
 
   useEffect(() => {
     fetch('/api/jogadoras.json')
       .then((response) => response.json())
       .then((data) => {
-        const loadedPlayers = limit ? data.slice(0, limit) : data;
-        setPlayers(loadedPlayers);
+        setAllPlayers(data);
       })
       .catch((error) => console.error("Erro ao buscar jogadoras:", error));
-  }, [limit]);
+  }, []);
+
+  const filteredPlayers = useMemo(() => {
+    let playersToFilter = [...allPlayers];
+
+    if (filters) {
+      if (filters.name) {
+        playersToFilter = playersToFilter.filter((player) =>
+          player.name.toLowerCase().includes(filters.name.toLowerCase())
+        );
+      }
+      if (filters.position) {
+        playersToFilter = playersToFilter.filter(
+          (player) => player.position === filters.position
+        );
+      }
+      if (filters.age === "U23") {
+        playersToFilter = playersToFilter.filter(
+          (player) => player.info.idade <= 23
+        );
+      } else if (filters.age === "24+") {
+        playersToFilter = playersToFilter.filter(
+          (player) => player.info.idade >= 24
+        );
+      }
+    }
+
+    if (limit) {
+      playersToFilter = playersToFilter.slice(0, limit);
+    }
+
+    return playersToFilter;
+    
+  }, [allPlayers, filters, limit]);
 
   const gridClass = gridClassName || "player-cards-grid";
 
-  if (players.length === 0) {
+  if (allPlayers.length === 0) {
     return <p>Carregando jogadoras...</p>;
+  }
+
+  if (filteredPlayers.length === 0) {
+    return <p>Nenhuma jogadora encontrada com esses filtros.</p>;
   }
 
   return (
     <div className={gridClass}>
-      {players.map((player, index) => (
-        <div className="player-card" key={index}>
+      {filteredPlayers.map((player) => (
+        <div className="player-card" key={player.id}>
           <Image
             src={player.photo}
             alt={`Foto de ${player.name}`}
@@ -36,10 +72,13 @@ export default function PlayerList({ limit, gridClassName }) {
           />
           <h3>{player.name}</h3>
           <p className="player-card-position">
-            {player.position} - {player.age} anos
+            {player.position} - {player.info.idade} anos
           </p>
           <div className="player-card-actions">
-            <Link href={player.profileLink} className="btn btn-small btn-secondary">
+            <Link
+              href={`/jogadora/${player.id}`}
+              className="btn btn-small btn-secondary"
+            >
               Ver Perfil
             </Link>
           </div>

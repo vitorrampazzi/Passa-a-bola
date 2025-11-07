@@ -49,8 +49,8 @@ export default function Home() {
       <section id="available-players" className="section">
         <h2>Jogadoras em Destaque</h2>
         <p>Conheça algumas das jogadoras que já estão no Passa a Bola.</p>
-          
-        <PlayerList limit={3} />
+
+        <PlayerList limit={6} />
 
         <Link
           href="/buscar-talentos"
